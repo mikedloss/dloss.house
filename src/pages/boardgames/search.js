@@ -1,12 +1,12 @@
 import React from 'react';
-import { Heading, Text, Flex, Box } from 'rebass';
 
 import Layout from '../../components/Layout';
+import SearchGame from '../../components/SearchGame';
 
 export default () => {
   return (
     <Layout>
-      <Heading>boardgames/search</Heading>
+      <SearchGame />
     </Layout>
   );
 };

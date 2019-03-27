@@ -7,7 +7,7 @@ import * as Media from '../Elements/media';
 
 export const GameProfile = ({ game, addGameState }) => {
   const [showDescription, setShowDescription] = useState(false);
-  
+
   return (
     <Flex flexDirection="column">
       <Flex flexDirection={['column', 'row']} alignItems="flex-start" justifyContent={[null, 'space-between']}>
@@ -33,7 +33,7 @@ export const GameProfile = ({ game, addGameState }) => {
         <Box width={['100%', '50%']}>
           {game.image && <Image src={game.image} width={['300px', '400px', '500px']} />}
         </Box>
-        <Flex flexDirection="column" width={['100%', '50%']} pr={[0, "1rem"]}>
+        <Flex flexDirection="column" width={['100%', '50%']} pr={[0, '1rem']}>
           <Box my="0.5rem">
             <Heading fontSize={2}>Title</Heading>
             <Text>{game.title ? game.title : 'No data found'}</Text>

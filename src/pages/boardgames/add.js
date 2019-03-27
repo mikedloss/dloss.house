@@ -10,6 +10,8 @@ export default () => {
   const [query, setQuery] = useState();
 
   useEffect(() => {
+    // only get the data from the url, specifically the id query
+    // e.g. /boardgames/add?id=123456
     if (typeof window !== 'undefined' && window.location.search) {
       setQuery(qs.parse(window.location.search, { ignoreQueryPrefix: true }));
     } else {

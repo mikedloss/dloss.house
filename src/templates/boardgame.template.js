@@ -6,15 +6,17 @@ import Layout from '../components/Layout';
 import GameProfile from '../components/GameProfile';
 
 const BoardGameTemplate = ({ data: { game } }) => {
-  if (typeof game.description === "object") {
+  if (typeof game.description === 'object') {
     const { description } = game.description;
     game.description = description;
   }
   return (
     <Layout>
       <Flex flexDirection="column" alignItems="flex-start">
-        <Link to='/boardgames'>
-          <Heading fontSize={2} mb="0.5rem">← Return to game list</Heading>
+        <Link to="/boardgames">
+          <Heading fontSize={2} mb="0.5rem">
+            ← Return to game list
+          </Heading>
         </Link>
         <Box width="100%">
           <hr />
