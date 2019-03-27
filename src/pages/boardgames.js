@@ -8,7 +8,7 @@ import GameList from '../components/GameList';
 
 import * as Media from '../components/Elements/media';
 
-export default (props) => {
+export default props => {
   // debugger;
   const { games } = props.data.allContentfulGame;
   return (

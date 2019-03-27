@@ -120,11 +120,9 @@ export const GameProfile = ({ game, addGameState }) => {
             <Heading fontSize={2}>Description</Heading>
             <Media.SmallOnly>
               <Text color="alternate" onClick={() => setShowDescription(!showDescription)}>
-                {showDescription ? 'Hide' : 'View'}{' '}Description
+                {showDescription ? 'Hide' : 'View'} Description
               </Text>
-              {showDescription && (
-                <Text>{addGameState ? game.description : game.description.description}</Text>
-              )}
+              {showDescription && <Text>{addGameState ? game.description : game.description.description}</Text>}
             </Media.SmallOnly>
             <Media.NotSmall>
               <Text>{addGameState ? game.description : game.description.description}</Text>

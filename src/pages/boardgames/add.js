@@ -8,5 +8,5 @@ export default () => {
     <Layout>
       <Heading>boardgames/add</Heading>
     </Layout>
-  )
-}
+  );
+};
