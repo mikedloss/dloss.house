@@ -4,6 +4,7 @@ import { Heading } from 'rebass';
 import NavItem from './components/NavItem';
 import * as Media from '../Elements/media';
 import * as Styles from './Header.styles';
+import { colors } from '../Elements/theme';
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -40,7 +41,7 @@ export const Header = () => {
       </Heading>
       <Styles.NavList isVisible={menuOpen} bg="primary">
         <NavItem>
-          <Styles.NavLink to="/boardgames" onClick={resetMenu} activeStyle={{ color: '#42613d' }}>
+          <Styles.NavLink to="/boardgames" onClick={resetMenu} activeStyle={{ color: colors.alternate }}>
             <Heading as="h3" fontSize={[4, 3]}>
               <span role="img" aria-label="dice">
                 🎲
