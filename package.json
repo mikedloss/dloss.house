@@ -17,6 +17,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
+    "react-dom-confetti": "^0.1.0",
     "react-helmet": "^5.2.0",
     "rebass": "^3.1.0",
     "styled-components": "^4.2.0",
@@ -39,8 +40,5 @@
     "serve:functions": "netlify-lambda serve functions",
     "build:functions": "netlify-lambda build functions",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
-  "pre-commit": [
-    "format"
-  ]
+  }
 }

@@ -5,7 +5,7 @@ import { Flex, Box, Heading, Text } from 'rebass';
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 
-const IndexPage = () => (
+export default () => (
   <Layout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <Flex flexDirection="column" alignItems="center" justifyContent="center">
@@ -27,5 +27,3 @@ const IndexPage = () => (
     </Flex>
   </Layout>
 );
-
-export default IndexPage;

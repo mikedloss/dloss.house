@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Heading, Text, Box, Flex, Card, Image } from 'rebass';
 
-import DifficultyBadge from '../../../../components/DifficultyBadge';
+import DifficultyBadge from '../DifficultyBadge';
 
 import * as Styles from './GameCard.styles';
-import * as Media from '../../../Elements/media';
+import * as Media from '../Elements/media';
 
 export const GameCard = ({ game }) => {
   // console.log(game);
