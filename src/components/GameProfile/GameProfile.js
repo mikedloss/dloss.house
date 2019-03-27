@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Flex, Box, Button, Text, Heading, Image } from 'rebass';
 import Confetti from 'react-dom-confetti';
 
@@ -6,6 +6,7 @@ import DifficultyBadge from '../../components/DifficultyBadge';
 import * as Media from '../Elements/media';
 
 export const GameProfile = ({ game, addGameState }) => {
+  const [showDescription, setShowDescription] = useState(false);
   return (
     <Flex flexDirection="column">
       <Flex flexDirection={['column', 'row']} alignItems="flex-start" justifyContent={[null, 'space-between']}>
@@ -105,6 +106,7 @@ export const GameProfile = ({ game, addGameState }) => {
                 }/${game.bggId}`}
                 target="_blank"
                 rel="noreferrer noopener"
+                color="alternate"
               >
                 Link to BGG
               </Text>
@@ -113,14 +115,22 @@ export const GameProfile = ({ game, addGameState }) => {
         </Flex>
       </Flex>
       <Flex px="1rem">
-        <Media.NotSmall>
-          {game.description && (
-            <Box mt="1rem">
-              <Heading fontSize={2}>Description</Heading>
+        {game.description && (
+          <Box mt="1rem">
+            <Heading fontSize={2}>Description</Heading>
+            <Media.SmallOnly>
+              <Text color="alternate" onClick={() => setShowDescription(!showDescription)}>
+                {showDescription ? 'Hide' : 'View'}{' '}Description
+              </Text>
+              {showDescription && (
+                <Text>{addGameState ? game.description : game.description.description}</Text>
+              )}
+            </Media.SmallOnly>
+            <Media.NotSmall>
               <Text>{addGameState ? game.description : game.description.description}</Text>
-            </Box>
-          )}
-        </Media.NotSmall>
+            </Media.NotSmall>
+          </Box>
+        )}
       </Flex>
     </Flex>
   );

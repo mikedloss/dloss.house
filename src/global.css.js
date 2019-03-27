@@ -50,7 +50,7 @@ export default createGlobalStyle`
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
     text-decoration: none;
-    color: #42613d;
+    color: palevioletred;
   }
   a:active,
   a:hover {
@@ -545,11 +545,11 @@ export default createGlobalStyle`
   }
 
   *::selection {
-    background: #ffeeab; /* WebKit/Blink Browsers */
+    background: papayawhip; /* WebKit/Blink Browsers */
     color: #22292F;
   }
   *::-moz-selection {
-    background: #ffeeab; /* Gecko Browsers */
+    background: papayawhip; /* Gecko Browsers */
     color: #22292F;
   }
 `;
