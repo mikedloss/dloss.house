@@ -15,7 +15,7 @@ const BoardGameTemplate = ({ data: { game } }) => {
     <Layout>
       <Flex flexDirection="column" alignItems="flex-start">
         <Link to='/boardgames'>
-          <Heading fontSize={2} mb="0.5rem">Return to game list</Heading>
+          <Heading fontSize={2} mb="0.5rem">← Return to game list</Heading>
         </Link>
         <Box width="100%">
           <hr />

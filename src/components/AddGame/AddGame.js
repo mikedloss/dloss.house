@@ -39,7 +39,6 @@ export const AddGame = ({ query }) => {
     try {
       const result = await axios.post(`/.netlify/functions/addGame`, contentfulGame);
       if (result.status === 200) {
-        setButtonText('Game added!');
         setWaitMessage({
           display: true,
           message: 'Game has been added!',

@@ -36,7 +36,7 @@ export const GameProfile = ({ game, addGameState }) => {
         <Box width={['100%', '50%']}>
           {game.image && <Image src={game.image} width={['300px', '400px', '500px']} />}
         </Box>
-        <Flex flexDirection="column" width={['100%', '50%']} p="1rem">
+        <Flex flexDirection="column" width={['100%', '50%']} pr={[0, "1rem"]}>
           <Box my="0.5rem">
             <Heading fontSize={2}>Title</Heading>
             <Text>{game.title ? game.title : 'No data found'}</Text>
@@ -97,7 +97,7 @@ export const GameProfile = ({ game, addGameState }) => {
           )}
         </Flex>
       </Flex>
-      <Flex px="1rem">
+      <Flex>
         {game.description && (
           <Box mt="1rem">
             <Heading fontSize={2}>Description</Heading>
