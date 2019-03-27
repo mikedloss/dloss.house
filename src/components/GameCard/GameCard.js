@@ -21,7 +21,7 @@ export const GameCard = ({ game }) => {
           <Media.NotSmall>
             <Image src={game.thumbnail} width="80px" ml="0.5rem" />
           </Media.NotSmall>
-          <Heading pl={[null, "1rem"]}>
+          <Heading pl={[null, '1rem']}>
             <Styles.GameTitleLink to={`/game/${game.bggId}`}>{game.title}</Styles.GameTitleLink>
             <DifficultyBadge difficulty={game.difficulty} />
           </Heading>
