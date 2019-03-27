@@ -60,7 +60,7 @@ export const GameCard = ({ game }) => {
           <Box width="25%">
             <Flex flexDirection="column">
               <Text fontSize={0} color="grey">
-                Playing Time
+                Time (min)
               </Text>
               {game.minPlayingTime && game.maxPlayingTime ? (
                 <Text>
