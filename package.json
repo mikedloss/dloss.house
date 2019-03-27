@@ -1,9 +1,7 @@
 {
-  "name": "gatsby-starter-default",
-  "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "name": "dloss.house-v2",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Mike DLoss <mike.dloss@gmail.com>",
   "dependencies": {
     "gatsby": "^2.2.13",
     "gatsby-image": "^2.0.34",
@@ -11,33 +9,34 @@
     "gatsby-plugin-offline": "^2.0.25",
     "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-sharp": "^2.0.31",
+    "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-source-contentful": "^2.0.44",
     "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-sharp": "^2.1.17",
+    "polished": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-helmet": "^5.2.0"
+    "react-helmet": "^5.2.0",
+    "rebass": "^3.1.0",
+    "styled-components": "^4.2.0",
+    "styled-system": "^4.0.8"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.0",
+    "dotenv": "^7.0.0",
     "prettier": "^1.16.4"
   },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
+    "build": "npm run clean:build && gatsby build",
+    "develop": "npm run clean:build && gatsby develop",
+    "serve": "npm run build && gatsby serve",
+    "clean:build": "rm -rf public .cache",
+    "clean:all": "rm -rf node_modules && npm run clean:build",
+    "format": "prettier --write 'src/**/*.js' --config-precedence file-override",
+    "serve:functions": "netlify-lambda serve functions",
+    "build:functions": "netlify-lambda build functions",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
