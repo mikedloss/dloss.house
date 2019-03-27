@@ -30,7 +30,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         games.forEach(game => {
           createPage({
-            path: `/game/${game.node.bggId}`,
+            path: `/boardgame/${game.node.bggId}`,
             component: gameInfoTemplate,
             context: {
               bggId: game.node.bggId,
