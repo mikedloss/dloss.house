@@ -28,28 +28,24 @@ export const Header = () => {
           {menuOpen ? 'Close' : 'Menu'}
         </Styles.MenuButton>
       </Media.SmallOnly>
-      <Heading
-        as="h1"
-        py="16px"
-        pl="16px"
-        fontSize={2}
-        style={{ display: 'inline-block' }}
-      >
+      <Heading as="h1" py="16px" pl="16px" fontSize={2} style={{ display: 'inline-block' }}>
         <Styles.Logo to="/">
           <Heading>
-            dloss{' '}<span role="img" aria-label="house">🏠</span>
+            dloss{' '}
+            <span role="img" aria-label="house">
+              🏠
+            </span>
           </Heading>
         </Styles.Logo>
       </Heading>
       <Styles.NavList isVisible={menuOpen} bg="primary">
         <NavItem>
-          <Styles.NavLink
-            to="/games"
-            onClick={resetMenu}
-            activeStyle={{ color: '#42613d' }}
-          >
+          <Styles.NavLink to="/games" onClick={resetMenu} activeStyle={{ color: '#42613d' }}>
             <Heading as="h3" fontSize={[4, 3]}>
-              <span role="img" aria-label="dice">🎲</span>{' '}Board Games
+              <span role="img" aria-label="dice">
+                🎲
+              </span>{' '}
+              Board Games
             </Heading>
           </Styles.NavLink>
         </NavItem>

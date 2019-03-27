@@ -5,16 +5,16 @@ import { breakpointValues as bp } from '../Elements/theme';
 
 export const Logo = styled(Link)`
   text-decoration: none;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `;
 
 export const LogoImage = styled(Image)`
-  color: ${(props) => props.theme.colors.primary};
+  color: ${props => props.theme.colors.primary};
 `;
 
 export const Nav = styled(Box)`
   min-height: 64px;
-  border-bottom: 2px solid ${(props) => props.theme.colors.primary};
+  border-bottom: 2px solid ${props => props.theme.colors.primary};
   @media screen and (min-width: ${bp.SMALL}px) {
     display: flex;
     justify-content: space-between;
@@ -27,7 +27,7 @@ export const MenuButton = styled(Button)`
   top: 2px;
   right: 0px;
   cursor: pointer;
-  ${(props) =>
+  ${props =>
     props.menuOpen &&
     `
     background-color: ${props.theme.colors.alternate};
@@ -43,10 +43,10 @@ export const NavList = styled.ul`
 
   position: absolute;
   width: 100%;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.white};
   top: 60px;
   z-index: ${({ isVisible }) => (isVisible ? '2' : '0')};
-  border-bottom: 2px solid ${(props) => props.theme.colors.alternate};
+  border-bottom: 2px solid ${props => props.theme.colors.alternate};
 
   @media screen and (min-width: ${bp.SMALL}px) {
     display: flex;
@@ -57,18 +57,18 @@ export const NavList = styled.ul`
     top: 0;
     width: inherit;
     border: none;
-    background-color: ${(props) => props.theme.colors.primary};
-    border-bottom: 2px solid ${(props) => props.theme.colors.primary};
+    background-color: ${props => props.theme.colors.primary};
+    border-bottom: 2px solid ${props => props.theme.colors.primary};
     box-shadow: none;
   }
 `;
 
 export const NavLink = styled(Link)`
   text-decoration: none;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   transition: color 0.2s ease-out;
 
   &:hover {
-    color: ${(props) => props.theme.colors.alternate};
+    color: ${props => props.theme.colors.alternate};
   }
 `;

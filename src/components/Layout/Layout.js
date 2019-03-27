@@ -14,10 +14,10 @@ export const Layout = ({ children }) => (
     <>
       <GlobalStyle />
       <Header />
-      <Styles.Content>
+      <Styles.ContentContainer>
         {children}
         <Footer />
-      </Styles.Content>
+      </Styles.ContentContainer>
     </>
   </ThemeProvider>
 );
