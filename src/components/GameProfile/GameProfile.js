@@ -83,7 +83,7 @@ export const GameProfile = ({ game, addGameState }) => {
               <Text>{game.bggId}</Text>
               <Text
                 as="a"
-                href={`https://boardgamegeek.com/${game.type.replace(' ', '').toLowerCase()}/${game.bggId}`}
+                href={`https://boardgamegeek.com/boardgame/${game.bggId}`}
                 target="_blank"
                 rel="noreferrer noopener"
                 color="alternate"
