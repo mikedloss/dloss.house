@@ -57,7 +57,7 @@ export const AddGame = ({ query }) => {
 
   const noWayJose = () => {
     navigate('/boardgames/search');
-  }
+  };
 
   return isLoading ? (
     <Text>Loading...</Text>
