@@ -7,10 +7,7 @@ import * as Media from '../Elements/media';
 
 export const GameProfile = ({ game, addGameState }) => {
   const [showDescription, setShowDescription] = useState(false);
-
-  console.log(game);
-  console.log(showDescription);
-
+  
   return (
     <Flex flexDirection="column">
       <Flex flexDirection={['column', 'row']} alignItems="flex-start" justifyContent={[null, 'space-between']}>

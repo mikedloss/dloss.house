@@ -6,7 +6,6 @@ import Layout from '../components/Layout';
 import GameProfile from '../components/GameProfile';
 
 const BoardGameTemplate = ({ data: { game } }) => {
-  console.log(game);
   if (typeof game.description === "object") {
     const { description } = game.description;
     game.description = description;
