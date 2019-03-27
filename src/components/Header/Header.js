@@ -40,7 +40,7 @@ export const Header = () => {
       </Heading>
       <Styles.NavList isVisible={menuOpen} bg="primary">
         <NavItem>
-          <Styles.NavLink to="/games" onClick={resetMenu} activeStyle={{ color: '#42613d' }}>
+          <Styles.NavLink to="/boardgames" onClick={resetMenu} activeStyle={{ color: '#42613d' }}>
             <Heading as="h3" fontSize={[4, 3]}>
               <span role="img" aria-label="dice">
                 🎲

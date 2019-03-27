@@ -16,8 +16,10 @@ const IndexPage = () => (
       <Flex flexDirection={['column', 'row']} alignItems="center" justifyContent="center">
         <Box>
           <Link to="/boardgames">
-            <Text as="span" role="img" aria-label="dice" fontSize="8">
-              🎲
+            <Text as="span" fontSize="8">
+              <span role="img" aria-label="dice">
+                🎲
+              </span>
             </Text>
           </Link>
         </Box>

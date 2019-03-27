@@ -13,8 +13,6 @@ export const LogoImage = styled(Image)`
 `;
 
 export const Nav = styled(Box)`
-  min-height: 64px;
-  border-bottom: 2px solid ${props => props.theme.colors.primary};
   @media screen and (min-width: ${bp.SMALL}px) {
     display: flex;
     justify-content: space-between;

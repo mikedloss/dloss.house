@@ -25,6 +25,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.0",
     "dotenv": "^7.0.0",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.16.4"
   },
   "license": "MIT",
@@ -38,5 +39,8 @@
     "serve:functions": "netlify-lambda serve functions",
     "build:functions": "netlify-lambda build functions",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
-  }
+  },
+  "pre-commit": [
+    "format"
+  ]
 }
