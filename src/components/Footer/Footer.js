@@ -3,13 +3,13 @@ import axios from 'axios';
 import { Text, Box } from 'rebass';
 
 export const Footer = () => {
-  const [dogLink, setDogLink] = useState("https://images.dog.ceo/breeds/shiba/shiba-12.jpg")
+  const [dogLink, setDogLink] = useState("https://random.dog/80a8c758-1ee8-4460-96c6-cb31716a269c.jpg")
 
   useEffect(() => {
     const fetchDog = async () => {
       try {
-        const result = await axios('https://dog.ceo/api/breeds/image/random')
-        setDogLink(result.data.message);
+        const result = await axios('https://random.dog/woof.json');
+        setDogLink(result.data.url);
       } catch (error) {
         console.error('no doggo')
       }
