@@ -5,7 +5,8 @@ import Layout from '../components/Layout';
 import GameProfile from '../components/GameProfile';
 
 const BoardGameTemplate = ({ data: { game } }) => {
-  // console.log(game);
+  const { description } = game.description;
+  game.description = description;
   return (
     <Layout>
       <GameProfile game={game} />
