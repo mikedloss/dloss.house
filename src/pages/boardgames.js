@@ -14,12 +14,6 @@ export default props => {
   return (
     <Layout>
       <SEO title="Games" keywords={[`gatsby`, `application`, `react`]} />
-      <Box mb="1rem">
-        <Heading fontSize={5}>Board Games</Heading>
-        <Media.NotSmall>
-          <Text>Here's a list of all the board games we have at our house for you to play!</Text>
-        </Media.NotSmall>
-      </Box>
       <GameList games={games} />
     </Layout>
   );
@@ -29,7 +23,7 @@ export const pageQuery = graphql`
   {
     allContentfulGame {
       games: edges {
-        node {
+        game: node {
           title
           bggId
           minPlayers
