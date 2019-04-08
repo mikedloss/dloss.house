@@ -64,7 +64,9 @@ export const GameCard = ({ game }) => {
               </Text>
               {game.minPlayingTime && game.maxPlayingTime ? (
                 <Text>
-                  {game.minPlayingTime === game.maxPlayingTime ? game.maxPlayingTime : `${game.minPlayingTime}-${game.maxPlayingTime}`}
+                  {game.minPlayingTime === game.maxPlayingTime
+                    ? game.maxPlayingTime
+                    : `${game.minPlayingTime}-${game.maxPlayingTime}`}
                 </Text>
               ) : (
                 <Text>?</Text>

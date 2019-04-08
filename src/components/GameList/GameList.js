@@ -14,30 +14,31 @@ export const GameList = props => {
   const [showFilter, toggleFilter] = useState(false);
   const [filter, setFilter] = useState({});
 
-  const difficultyFilter = filter.difficulty && filter.difficulty !== "All"
+  const difficultyFilter = filter.difficulty && filter.difficulty !== 'All';
 
   props.games.sort((a, b) => {
     const [key, order] = sortKey.split(':');
-    if (order === "asc") {
-      return (a.game[key] > b.game[key] ? 1 : (b.game[key] > a.game[key] ? -1 : 0))
+    if (order === 'asc') {
+      return a.game[key] > b.game[key] ? 1 : b.game[key] > a.game[key] ? -1 : 0;
     } else {
-      return (b.game[key] > a.game[key] ? 1 : (a.game[key] > b.game[key] ? -1 : 0))
+      return b.game[key] > a.game[key] ? 1 : a.game[key] > b.game[key] ? -1 : 0;
     }
   });
-
 
   const filterGames = () => {
     let filteredGames = props.games;
 
     // filter difficulty
     if (difficultyFilter) {
-      filteredGames = filteredGames.filter(({ game }) => determineDifficulty(game.difficulty).shortName === filter.difficulty)
+      filteredGames = filteredGames.filter(
+        ({ game }) => determineDifficulty(game.difficulty).shortName === filter.difficulty,
+      );
     }
 
     // filter something else
     // console.log(filteredGames);
     return filteredGames;
-  }
+  };
 
   return (
     <>
@@ -64,13 +65,7 @@ export const GameList = props => {
           </Text>
         </Box>
         <Flex onClick={() => toggleFilter(!showFilter)}>
-          <Styles.FilterButton
-            bg="alternate"
-            color="white"
-            py="0.25rem"
-            px="0.5rem"
-            fontSize={0}
-          >
+          <Styles.FilterButton bg="alternate" color="white" py="0.25rem" px="0.5rem" fontSize={0}>
             {showFilter ? 'Close Filters' : 'Show Filters'}
           </Styles.FilterButton>
         </Flex>
@@ -80,14 +75,18 @@ export const GameList = props => {
           <Card my="1rem" bg="offWhite" p="1rem">
             <Box>
               <Text color={difficultyFilter ? 'alternate' : 'black'} fontSize={2}>
-              {difficultyFilter && '➡ '}Only show{' '}
-                <Styles.SelectField value={filter.difficulty} onChange={e => setFilter({...filter, difficulty: e.target.value})}>
+                {difficultyFilter && '➡ '}Only show{' '}
+                <Styles.SelectField
+                  value={filter.difficulty}
+                  onChange={e => setFilter({ ...filter, difficulty: e.target.value })}
+                >
                   <option value="All">All</option>
                   <option value="Easy">Easy</option>
                   <option value="Medium">Medium</option>
                   <option value="Hard">Hard</option>
                   <option value="Expert">Expert</option>
-                </Styles.SelectField>{' '}games
+                </Styles.SelectField>{' '}
+                games
               </Text>
             </Box>
             <Box>another</Box>
