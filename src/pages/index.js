@@ -22,6 +22,23 @@ export default () => (
               </span>
             </Link>
           </Text>
+          <Text fontSize={8}>
+            <span role="img" aria-label="pizza">
+              🍕
+            </span>
+          </Text>
+          <Text fontSize={3}>
+            <span role="img" aria-label="house">
+              🏠
+            </span>
+          </Text>
+          <Text fontSize={3}>
+            <Link to="/boardgames">
+              <span role="img" aria-label="clown">
+                🤡
+              </span>
+            </Link>
+          </Text>
         </Box>
       </Flex>
     </Flex>
