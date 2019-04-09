@@ -19,7 +19,8 @@ export default () => (
             <Heading fontSize={4}>
               <span role="img" aria-label="dice">
                 🎲
-              </span>{' '}Board Games
+              </span>{' '}
+              Board Games
             </Heading>
           </Link>
         </Box>
