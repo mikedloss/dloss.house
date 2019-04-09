@@ -14,7 +14,8 @@ export const GameList = props => {
   const [showFilter, toggleFilter] = useState(false);
   const [filter, setFilter] = useState({});
 
-  const difficultyFilter = filter.difficulty && filter.difficulty !== 'All';
+  const difficultyFilter = filter.difficulty && filter.difficulty !== 'any';
+  const playersFilter = filter.players && filter.players !== "any";
 
   props.games.sort((a, b) => {
     const [key, order] = sortKey.split(':');
@@ -37,6 +38,27 @@ export const GameList = props => {
 
     // filter something else
     // console.log(filteredGames);
+    console.log(playersFilter);
+    if (playersFilter) {
+      filteredGames = filteredGames.filter(({ game }) => {
+        // if game.minPlayers is 4, and filter.minPlayers = 3, i want to see this game (filter < game)
+        // if game.minPlayers is 4, and filter.minPlayers = 4, i want to see this game filter
+        // if game.minPlayers is 4, and filter.minPlayers = 5, i do not want to see this game
+
+        // game 5-8 players, # of players 3, don't show
+        // game 5-8 players, # of players 4, don't show
+        // game 5-8 players, # of players 5, show
+        // game 5-8 players, # of players 6, show
+        // game 5-8 players, # of players 7, show
+        // game 5-8 players, # of players 8, don't show
+
+        console.log(game.title, filter.players, game.minPlayers);
+        if (filter.players >= game.minPlayers && filter.players <= game.maxPlayers) {
+          console.log(`player filter (${filter.players}) will show ${game.title}`)
+        }
+        return filter.players >= game.minPlayers && filter.players <= game.maxPlayers;
+      })
+    }
     return filteredGames;
   };
 
@@ -48,6 +70,11 @@ export const GameList = props => {
           <Media.NotSmall>
             <Text>Here's a list of all {props.games.length} board games we have at our house for you to play!</Text>
           </Media.NotSmall>
+          <Media.SmallOnly>
+            <Text fontSize={2}>
+              Showing {props.games.length} games
+            </Text>
+          </Media.SmallOnly>
         </Flex>
       </Flex>
       <Flex flexDirection={["column", "row"]} alignItems="flex-start" justifyContent={[null, "space-between"]} my="1rem">
@@ -73,23 +100,56 @@ export const GameList = props => {
       {showFilter && (
         <Flex alignItems="center" justifyContent={["flex-start", "flex-end"]}>
           <Card bg="offWhite" p="1rem" mb={showFilter ? '1rem' : '0'}>
-            <Box>
+            <Box  my="0.5rem">
               <Text color={difficultyFilter ? 'alternate' : 'black'} fontSize={2}>
-                {difficultyFilter && '➡ '}Only show{' '}
+                {difficultyFilter && '➡ '}I want to play games with{' '}
                 <Styles.SelectField
                   value={filter.difficulty}
                   onChange={e => setFilter({ ...filter, difficulty: e.target.value })}
                 >
-                  <option value="All">All</option>
+                  <option value="any">Any</option>
                   <option value="Easy">Easy</option>
                   <option value="Medium">Medium</option>
                   <option value="Hard">Hard</option>
                   <option value="Expert">Expert</option>
                 </Styles.SelectField>{' '}
-                games
+                difficulty
+                {difficultyFilter && (
+                  <Styles.FilterButton as="span" bg="white" color="black" ml="0.5rem" fontSize={0}
+                    onClick={() => setFilter({ ...filter, difficulty: 'any' })}
+                  >
+                    Clear
+                  </Styles.FilterButton>
+                )}
               </Text>
             </Box>
-            <Box>another</Box>
+            <Box my="0.5rem">
+              <Text color={playersFilter ? 'alternate' : 'black'} fontSize={2}>
+                {playersFilter && '➡ '}I have{' '}
+                <Styles.SelectField
+                  value={filter.players}
+                  onChange={e => setFilter({ ...filter, players: e.target.value })}
+                >
+                  <option value="any">Some</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8+</option>
+                </Styles.SelectField>
+                {' '}players playing with me
+                {playersFilter && (
+                  <Styles.FilterButton as="span" bg="white" color="black" ml="0.5rem" fontSize={0}
+                    onClick={() => setFilter({ ...filter, players: 'any' })}
+                  >
+                    Clear
+                  </Styles.FilterButton>
+                )}
+              </Text>
+            </Box>
           </Card>
         </Flex>
       )}

@@ -50,7 +50,10 @@ export const GameCard = ({ game }) => {
               </Text>
               {game.minPlayers && game.maxPlayers ? (
                 <Text>
-                  {game.minPlayers}-{game.maxPlayers}
+                  {game.minPlayers === game.maxPlayers
+                    ? game.minPlayers
+                    : `${game.minPlayers}-${game.maxPlayers}`
+                  }
                 </Text>
               ) : (
                 <Text>?</Text>

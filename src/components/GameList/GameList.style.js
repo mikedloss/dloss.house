@@ -8,10 +8,4 @@ export const SelectField = styled.select`
 
 export const FilterButton = styled(Button)`
   cursor: pointer;
-  ${props =>
-    props.menuOpen &&
-    `
-    background-color: ${props.theme.colors.alternate};
-    color: ${props.theme.colors.white};
-  `}
 `;
