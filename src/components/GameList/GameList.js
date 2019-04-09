@@ -50,17 +50,17 @@ export const GameList = props => {
           </Media.NotSmall>
         </Flex>
       </Flex>
-      <Flex justifyContent="space-between" my="1rem">
-        <Box>
+      <Flex flexDirection={["column", "row"]} alignItems="flex-start" justifyContent={[null, "space-between"]} my="1rem">
+        <Box mb={["0.5rem", 0]}>
           <Text fontSize={2}>
             Sort by{' '}
             <Styles.SelectField value={sortKey} onChange={e => setSortKey(e.target.value)}>
-              <option value="title:asc">Title (Ascending)</option>
-              <option value="title:desc">Title (Descending)</option>
-              <option value="bggRating:asc">Rating (Ascending)</option>
-              <option value="bggRating:desc">Rating (Descending)</option>
-              <option value="difficulty:asc">Difficulty (Ascending)</option>
-              <option value="difficulty:desc">Difficulty (Descending)</option>
+              <option value="title:asc">Title (Asc)</option>
+              <option value="title:desc">Title (Desc)</option>
+              <option value="bggRating:asc">Rating (Asc)</option>
+              <option value="bggRating:desc">Rating (Desc)</option>
+              <option value="difficulty:asc">Difficulty (Asc)</option>
+              <option value="difficulty:desc">Difficulty (Desc)</option>
             </Styles.SelectField>
           </Text>
         </Box>
@@ -71,8 +71,8 @@ export const GameList = props => {
         </Flex>
       </Flex>
       {showFilter && (
-        <Flex alignItems="center" justifyContent="flex-end">
-          <Card my="1rem" bg="offWhite" p="1rem">
+        <Flex alignItems="center" justifyContent={["flex-start", "flex-end"]}>
+          <Card bg="offWhite" p="1rem" mb={showFilter ? '1rem' : '0'}>
             <Box>
               <Text color={difficultyFilter ? 'alternate' : 'black'} fontSize={2}>
                 {difficultyFilter && '➡ '}Only show{' '}

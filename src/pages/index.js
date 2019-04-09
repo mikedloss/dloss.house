@@ -15,13 +15,13 @@ export default () => (
       </Box>
       <Flex flexDirection={['column', 'row']} alignItems="center" justifyContent="center">
         <Box>
-          <Link to="/boardgames">
-            <Text as="span" fontSize="8">
+          <Text fontSize={8}>
+            <Link to="/boardgames">
               <span role="img" aria-label="dice">
                 🎲
               </span>
-            </Text>
-          </Link>
+            </Link>
+          </Text>
         </Box>
       </Flex>
     </Flex>
