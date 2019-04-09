@@ -9,36 +9,19 @@ export default () => (
   <Layout>
     <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
     <Flex flexDirection="column" alignItems="center" justifyContent="center">
-      <Box>
-        <Heading>Welcome</Heading>
-        <Text>Tap an icon below</Text>
-      </Box>
+      <Flex flexDirection="column" alignItems="center" mb="2rem">
+        <Heading fontSize={5}>Welcome!</Heading>
+        <Text>Here's what is available</Text>
+      </Flex>
       <Flex flexDirection={['column', 'row']} alignItems="center" justifyContent="center">
         <Box>
-          <Text fontSize={7}>
-            <Link to="/boardgames">
+          <Link to="/boardgames">
+            <Heading fontSize={4}>
               <span role="img" aria-label="dice">
                 🎲
-              </span>
-            </Link>
-          </Text>
-          <Text fontSize={7}>
-            <span role="img" aria-label="pizza">
-              🍕
-            </span>
-          </Text>
-          <Text fontSize={3}>
-            <span role="img" aria-label="house">
-              🏠
-            </span>
-          </Text>
-          <Text fontSize={3}>
-            <Link to="/boardgames">
-              <span role="img" aria-label="clown">
-                🤡
-              </span>
-            </Link>
-          </Text>
+              </span>{' '}Board Games
+            </Heading>
+          </Link>
         </Box>
       </Flex>
     </Flex>
