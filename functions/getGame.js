@@ -38,6 +38,7 @@ exports.handler = async function (event, content, callback) {
   const maxPlayers = parseInt($('maxplayers').attr().value.trim());
   const minPlayingTime = parseInt($('minplaytime').attr().value.trim());
   const maxPlayingTime = parseInt($('maxplaytime').attr().value.trim());
+  const averagePlayingTime = Math.ceil((minPlayingTime + maxPlayingTime) / 2);
   const bggRating = parseFloat($('statistics').find('ratings').find('average').attr().value).toFixed(1);
   const difficulty = parseFloat($('statistics').find('ratings').find('averageweight').attr().value).toFixed(2);
   
@@ -63,6 +64,7 @@ exports.handler = async function (event, content, callback) {
     maxPlayers,
     minPlayingTime,
     maxPlayingTime,
+    averagePlayingTime,
     categories,
     mechanisms,
     bggRating,

@@ -8,6 +8,8 @@ import * as Media from '../Elements/media';
 export const GameProfile = ({ game, addGameState }) => {
   const [showDescription, setShowDescription] = useState(false);
 
+  console.log(game);
+
   return (
     <Flex flexDirection="column">
       <Flex flexDirection={['column', 'row']} alignItems="flex-start" justifyContent={[null, 'space-between']}>
@@ -57,17 +59,25 @@ export const GameProfile = ({ game, addGameState }) => {
           </Box>
           <Box my="0.5rem">
             <Heading fontSize={2}>Players</Heading>
-            <Text>
-              {game.minPlayers && game.maxPlayers ? `${game.minPlayers} - ${game.maxPlayers}` : 'No data found'}
-            </Text>
+            {game.minPlayers && game.maxPlayers ? (
+              <Text>
+                {game.minPlayers === game.maxPlayers ? game.minPlayers : `${game.minPlayers}-${game.maxPlayers}`}
+              </Text>
+            ) : (
+              <Text>No data found</Text>
+            )}
           </Box>
           <Box my="0.5rem">
-            <Heading fontSize={2}>Playing Time</Heading>
-            <Text>
-              {game.minPlayingTime && game.maxPlayingTime
-                ? `${game.minPlayingTime} - ${game.maxPlayingTime} minutes`
-                : 'No data found'}
-            </Text>
+            <Heading fontSize={2}>Playing Time (min)</Heading>
+            {game.minPlayingTime && game.maxPlayingTime ? (
+              <Text>
+                {game.minPlayingTime === game.maxPlayingTime
+                  ? game.maxPlayingTime
+                  : `${game.minPlayingTime}-${game.maxPlayingTime}`}
+              </Text>
+            ) : (
+              <Text>No data found</Text>
+            )}
           </Box>
           <Box my="0.5rem">
             <Heading fontSize={2}>Categories</Heading>

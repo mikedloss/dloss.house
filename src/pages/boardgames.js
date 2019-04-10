@@ -9,8 +9,13 @@ import GameList from '../components/GameList';
 import * as Media from '../components/Elements/media';
 
 export default props => {
-  // debugger;
   const { games } = props.data.allContentfulGame;
+
+  // add averagePlayingTime
+  games.forEach(({ game }) => {
+    game.averagePlayingTime = Math.ceil((game.minPlayingTime + game.maxPlayingTime) / 2);
+  });
+
   return (
     <Layout>
       <SEO title="Games" keywords={[`gatsby`, `application`, `react`]} />

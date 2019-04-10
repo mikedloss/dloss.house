@@ -13,6 +13,7 @@ export const GameList = props => {
   const defaultFilters = {
     difficulty: 'any',
     players: 'any',
+    playingTime: 'any',
   };
 
   const [sortKey, setSortKey] = useState('title:asc');
@@ -21,6 +22,7 @@ export const GameList = props => {
 
   const difficultyFilter = filters.difficulty && filters.difficulty !== 'any';
   const playersFilter = filters.players && filters.players !== 'any';
+  const playingTimeFilter = filters.playingTime && filters.playingTime !== 'any';
 
   props.games.sort((a, b) => {
     const [key, order] = sortKey.split(':');
@@ -47,6 +49,12 @@ export const GameList = props => {
         ({ game }) => filters.players >= game.minPlayers && filters.players <= game.maxPlayers,
       );
     }
+
+    // filter playing time (by average)
+    if (playingTimeFilter) {
+      filteredGames = filteredGames.filter(({ game }) => filters.playingTime >= game.averagePlayingTime);
+    }
+
     return filteredGames;
   };
 
@@ -75,12 +83,12 @@ export const GameList = props => {
           <Text fontSize={2}>
             Sort by{' '}
             <Styles.SelectField value={sortKey} onChange={e => setSortKey(e.target.value)}>
-              <option value="title:asc">Title (Asc)</option>
-              <option value="title:desc">Title (Desc)</option>
-              <option value="bggRating:asc">Rating (Asc)</option>
-              <option value="bggRating:desc">Rating (Desc)</option>
-              <option value="difficulty:asc">Difficulty (Asc)</option>
-              <option value="difficulty:desc">Difficulty (Desc)</option>
+              <option value="title:asc">Title (A-Z)</option>
+              <option value="bggRating:desc">Highest rated first</option>
+              <option value="difficulty:asc">Least difficult first</option>
+              <option value="difficulty:desc">Most difficult first</option>
+              <option value="averagePlayingTime:asc">Shortest playing time first</option>
+              <option value="averagePlayingTime:desc">Longest playing time first</option>
             </Styles.SelectField>
           </Text>
         </Box>
@@ -158,6 +166,48 @@ export const GameList = props => {
                 players playing with me
               </Text>
             </Box>
+            <Box my="0.5rem">
+              <Text color={playingTimeFilter ? 'alternate' : 'black'} fontSize={2}>
+                {playingTimeFilter && (
+                  <Styles.ClearFilterButton
+                    bg="white"
+                    color="black"
+                    mr="0.5rem"
+                    fontSize={0}
+                    onClick={() => setFilter({ ...filters, playingTime: 'any' })}
+                  >
+                    Clear
+                  </Styles.ClearFilterButton>
+                )}{' '}
+                I have about{' '}
+                <Styles.SelectField
+                  value={filters.players}
+                  onChange={e => setFilter({ ...filters, playingTime: e.target.value })}
+                >
+                  <option value="any">Unlimited</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                  <option value="60">60</option>
+                  <option value="90">90 (1hr 30min)</option>
+                  <option value="120+">120+ (2hr or longer)</option>
+                </Styles.SelectField>{' '}
+                minutes of time to play a game (uses average playing time)
+              </Text>
+            </Box>
+            {!isEqual(defaultFilters, filters) && (
+              <Box>
+                <Styles.ClearFilterButton
+                  bg="white"
+                  color="black"
+                  mr="0.5rem"
+                  fontSize={0}
+                  onClick={() => setFilter({ ...defaultFilters })}
+                >
+                  Clear All Filters
+                </Styles.ClearFilterButton>
+              </Box>
+            )}
           </Card>
         </Flex>
       )}
