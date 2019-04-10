@@ -13,7 +13,7 @@ export default () => (
         <Heading fontSize={5}>Welcome!</Heading>
         <Text>Here's what is available</Text>
       </Flex>
-      <Flex flexDirection='column' alignItems="center" justifyContent="center" width="100%">
+      <Flex flexDirection="column" alignItems="center" justifyContent="center" width="100%">
         <Box mb="1rem">
           <Link to="/boardgames">
             <Heading fontSize={4}>

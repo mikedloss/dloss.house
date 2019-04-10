@@ -10,11 +10,16 @@ export default props => {
   return (
     <Layout>
       <SEO title="Games" keywords={[`gatsby`, `application`, `react`]} />
-      <Flex flexDirection="column" alignItems={["flex-start", "center"]}>
+      <Flex flexDirection="column" alignItems={['flex-start', 'center']}>
         <Box mb="1rem">
-          <Heading>Info about the <span role="img" aria-label="house">🏠</span></Heading>
+          <Heading>
+            Info about the{' '}
+            <span role="img" aria-label="house">
+              🏠
+            </span>
+          </Heading>
         </Box>
-        <Box width={["100%", 0]}>
+        <Box width={['100%', 0]}>
           <hr />
         </Box>
         {info.map(({ article }, index) => (

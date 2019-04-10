@@ -19,12 +19,13 @@ const ArticleTemplate = ({ data: { article } }) => {
           <hr />
         </Box>
         <Box>
-          <Heading fontSize={["5", "6"]} mb="1rem">{ article.title }</Heading>
-          { documentToReactComponents(JSON.parse(article.content.content)) }
+          <Heading fontSize={['5', '6']} mb="1rem">
+            {article.title}
+          </Heading>
+          {documentToReactComponents(JSON.parse(article.content.content))}
           <Text fontSize={0}>Last updated on {dayjs(article.updatedAt).format('MMMM DD, YYYY')}</Text>
         </Box>
       </Flex>
-      
     </Layout>
   );
 };
@@ -32,8 +33,8 @@ const ArticleTemplate = ({ data: { article } }) => {
 export default ArticleTemplate;
 
 export const pageQuery = graphql`
-  query ArticleById($id: String) {
-    article: contentfulInfo(id: { eq: $id }) {
+  query ArticleById($articleId: String) {
+    article: contentfulInfo(id: { eq: $articleId }) {
       title
       content {
         content
