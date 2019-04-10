@@ -166,7 +166,7 @@ export const GameList = props => {
                   <option value="5">5</option>
                   <option value="6">6</option>
                   <option value="7">7</option>
-                  <option value="8">8+</option>
+                  <option value="8">8 or more</option>
                 </Styles.SelectField>{' '}
                 players playing with me
               </Text>
