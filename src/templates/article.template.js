@@ -19,7 +19,7 @@ const ArticleTemplate = ({ data: { article } }) => {
           <hr />
         </Box>
         <Box>
-          <Heading fontSize={6} mb="1rem">{ article.title }</Heading>
+          <Heading fontSize={["5", "6"]} mb="1rem">{ article.title }</Heading>
           { documentToReactComponents(JSON.parse(article.content.content)) }
           <Text fontSize={0}>Last updated on {dayjs(article.updatedAt).format('MMMM DD, YYYY')}</Text>
         </Box>
