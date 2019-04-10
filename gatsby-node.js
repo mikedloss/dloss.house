@@ -8,11 +8,23 @@ exports.createPages = ({ graphql, actions }) => {
       graphql(`
         {
           allContentfulGame {
-            edges {
-              node {
+            games: edges {
+              game: node {
                 id
                 title
                 bggId
+              }
+            }
+          }
+          allContentfulInfo {
+            info: edges {
+              article: node {
+                id
+                title
+                slug
+                content {
+                  content
+                }
               }
             }
           }
@@ -23,20 +35,33 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors);
         }
 
-        const games = result.data.allContentfulGame.edges;
+        const { games } = result.data.allContentfulGame;
         const gameInfoTemplate = path.resolve(
           'src/templates/boardgame.template.js',
         );
 
-        games.forEach(game => {
+        games.forEach(({ game }) => {
           createPage({
-            path: `/boardgame/${game.node.bggId}`,
+            path: `/boardgame/${game.bggId}`,
             component: gameInfoTemplate,
             context: {
-              bggId: game.node.bggId,
+              bggId: game.bggId,
             },
           });
         });
+
+        const { info } = result.data.allContentfulInfo;
+        const articleTemplate = path.resolve('src/templates/article.template.js');
+
+        info.forEach(({ article }) => {
+          createPage({
+            path: `/info/${article.slug}`,
+            component: articleTemplate,
+            context: {
+              articleId: article.id,
+            },
+          })
+        })
       }),
     );
   });

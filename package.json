@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "author": "Mike DLoss <mike.dloss@gmail.com>",
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^13.2.0",
     "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "contentful-management": "^5.7.0",
+    "dayjs": "^1.8.12",
     "gatsby": "^2.2.13",
     "gatsby-image": "^2.0.34",
     "gatsby-plugin-offline": "^2.0.25",

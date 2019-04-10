@@ -50,6 +50,16 @@ export const Header = () => {
             </Heading>
           </Styles.NavLink>
         </NavItem>
+        <NavItem>
+          <Styles.NavLink to="/info" onClick={resetMenu} activeStyle={{ color: colors.alternate }}>
+            <Heading as="h3" fontSize={[4, 3]}>
+              <span role="img" aria-label="info">
+                ℹ️
+              </span>{' '}
+              Info
+            </Heading>
+          </Styles.NavLink>
+        </NavItem>
       </Styles.NavList>
     </Styles.Nav>
   );
