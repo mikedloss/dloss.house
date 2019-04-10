@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flex, Text, Heading, Box } from 'rebass';
+import { Flex, Text, Heading } from 'rebass';
 import { navigate } from 'gatsby';
 import axios from 'axios';
 import Confetti from 'react-dom-confetti';

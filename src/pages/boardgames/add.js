@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { navigate } from 'gatsby';
-import { Text } from 'rebass';
 import qs from 'qs';
 
 import Layout from '../../components/Layout';

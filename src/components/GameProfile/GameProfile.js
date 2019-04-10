@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flex, Box, Button, Text, Heading, Image } from 'rebass';
+import { Flex, Box, Text, Heading, Image } from 'rebass';
 import Confetti from 'react-dom-confetti';
 
 import DifficultyBadge from '../../components/DifficultyBadge';

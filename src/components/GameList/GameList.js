@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
-import { Heading, Button, Flex, Box, Text, Card } from 'rebass';
+import { Heading, Flex, Box, Text, Card } from 'rebass';
 import { isEqual } from 'lodash';
 
 import GameCard from '../GameCard';
@@ -20,18 +19,10 @@ export const GameList = props => {
   const [showFilters, toggleFilter] = useState(false);
   const [filters, setFilter] = useState(defaultFilters);
 
+  const disableFilterButton = showFilters && !isEqual(filters, defaultFilters);
   const difficultyFilter = filters.difficulty && filters.difficulty !== 'any';
   const playersFilter = filters.players && filters.players !== 'any';
   const playingTimeFilter = filters.playingTime && filters.playingTime !== 'any';
-
-  props.games.sort((a, b) => {
-    const [key, order] = sortKey.split(':');
-    if (order === 'asc') {
-      return a.game[key] > b.game[key] ? 1 : b.game[key] > a.game[key] ? -1 : 0;
-    } else {
-      return b.game[key] > a.game[key] ? 1 : a.game[key] > b.game[key] ? -1 : 0;
-    }
-  });
 
   const filterGames = () => {
     let filteredGames = props.games;
@@ -58,8 +49,16 @@ export const GameList = props => {
     return filteredGames;
   };
 
-  const disableFilterButton = showFilters && !isEqual(filters, defaultFilters);
   const filteredGames = filterGames();
+
+  filteredGames.sort((a, b) => {
+    const [key, order] = sortKey.split(':');
+    if (order === 'asc') {
+      return a.game[key] > b.game[key] ? 1 : b.game[key] > a.game[key] ? -1 : 0;
+    } else {
+      return b.game[key] > a.game[key] ? 1 : a.game[key] > b.game[key] ? -1 : 0;
+    }
+  });
 
   return (
     <>

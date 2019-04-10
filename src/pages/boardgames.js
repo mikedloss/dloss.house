@@ -1,12 +1,9 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
-import { Flex, Box, Heading, Text } from 'rebass';
+import { graphql } from 'gatsby';
 
 import Layout from '../components/Layout';
 import SEO from '../components/SEO';
 import GameList from '../components/GameList';
-
-import * as Media from '../components/Elements/media';
 
 export default props => {
   const { games } = props.data.allContentfulGame;

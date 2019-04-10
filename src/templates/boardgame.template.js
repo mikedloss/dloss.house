@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Link, graphql } from 'gatsby';
-import { Flex, Text, Heading, Box } from 'rebass';
+import { Flex, Heading, Box } from 'rebass';
 
 import Layout from '../components/Layout';
 import GameProfile from '../components/GameProfile';
