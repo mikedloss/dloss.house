@@ -9,7 +9,7 @@ export default props => {
   const { info } = props.data.allContentfulInfo;
   return (
     <Layout>
-      <SEO title="Games" keywords={[`gatsby`, `application`, `react`]} />
+      <SEO title="Games" keywords={[`dloss`, `info`]} />
       <Flex flexDirection="column" alignItems={['flex-start', 'center']}>
         <Box mb="1rem">
           <Heading>

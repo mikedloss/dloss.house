@@ -15,7 +15,7 @@ export default props => {
 
   return (
     <Layout>
-      <SEO title="Games" keywords={[`gatsby`, `application`, `react`]} />
+      <SEO title="Board Games" keywords={[`dloss`, `games`, `boardgames`]} />
       <GameList games={games} />
     </Layout>
   );

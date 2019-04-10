@@ -65,17 +65,12 @@ export const GameList = props => {
       <Flex alignItems="center" justifyContent="space-between">
         <Flex flexDirection="column">
           <Heading fontSize={5}>Board Games</Heading>
-          <Media.NotSmall>
-            <Text>Here's a list of all {filteredGames.length} board games we have at our house for you to play!</Text>
-          </Media.NotSmall>
-          <Media.SmallOnly>
-            <Text fontSize={2}>
-              Showing{' '}
-              {filteredGames.length !== props.games.length
-                ? `${filteredGames.length} out of ${props.games.length} total games`
-                : `all ${props.games.length} games`}
-            </Text>
-          </Media.SmallOnly>
+          <Text fontSize={['2', '3']}>
+            Showing{' '}
+            {filteredGames.length !== props.games.length
+              ? `${filteredGames.length} out of ${props.games.length} total games`
+              : `all ${props.games.length} games`}
+          </Text>
         </Flex>
       </Flex>
       <Flex

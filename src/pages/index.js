@@ -7,7 +7,7 @@ import SEO from '../components/SEO';
 
 export default () => (
   <Layout>
-    <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
+    <SEO title="Home" keywords={[`dloss`, `games`]} />
     <Flex flexDirection="column" alignItems="center" justifyContent="center">
       <Flex flexDirection="column" alignItems="center" mb="2rem">
         <Heading fontSize={5}>Welcome!</Heading>
