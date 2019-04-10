@@ -41,6 +41,17 @@ exports.handler = async function (event, content, callback) {
   const averagePlayingTime = Math.ceil((minPlayingTime + maxPlayingTime) / 2);
   const bggRating = parseFloat($('statistics').find('ratings').find('average').attr().value).toFixed(1);
   const difficulty = parseFloat($('statistics').find('ratings').find('averageweight').attr().value).toFixed(2);
+  // const bggRank = $('statistics').find('ratings').find('ranks').find('rank').attr().value.trim();
+
+  let bggRank = "Unknown Rank"
+  let ranksObj = $('statistics').find('ratings').find('ranks').children()
+  Object.keys(ranksObj).forEach(key => {
+    if (ranksObj[key].attribs && ranksObj[key].attribs.friendlyname === 'Board Game Rank') {
+      bggRank = ranksObj[key].attribs.value;
+    } else {
+      return false;
+    }
+  })
   
   const categories = [];
   const mechanisms = [];
@@ -69,6 +80,7 @@ exports.handler = async function (event, content, callback) {
     mechanisms,
     bggRating,
     difficulty,
+    bggRank,
   }
 
   const gameValues = Object.values(gameData);
