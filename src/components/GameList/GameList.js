@@ -181,7 +181,7 @@ export const GameList = props => {
                 )}{' '}
                 I have about{' '}
                 <Styles.SelectField
-                  value={filters.players}
+                  value={filters.playingTime}
                   onChange={e => setFilter({ ...filters, playingTime: e.target.value })}
                 >
                   <option value="any">Unlimited</option>
@@ -190,7 +190,6 @@ export const GameList = props => {
                   <option value="45">45</option>
                   <option value="60">60</option>
                   <option value="90">90 (1hr 30min)</option>
-                  <option value="120+">120+ (2hr or longer)</option>
                 </Styles.SelectField>{' '}
                 minutes of time to play a game (uses average playing time)
               </Text>
