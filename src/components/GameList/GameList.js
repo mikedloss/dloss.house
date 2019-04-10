@@ -59,6 +59,7 @@ export const GameList = props => {
   };
 
   const disableFilterButton = showFilters && !isEqual(filters, defaultFilters);
+  const filteredGames = filterGames();
 
   return (
     <>
@@ -66,10 +67,15 @@ export const GameList = props => {
         <Flex flexDirection="column">
           <Heading fontSize={5}>Board Games</Heading>
           <Media.NotSmall>
-            <Text>Here's a list of all {props.games.length} board games we have at our house for you to play!</Text>
+            <Text>Here's a list of all {filteredGames.length} board games we have at our house for you to play!</Text>
           </Media.NotSmall>
           <Media.SmallOnly>
-            <Text fontSize={2}>Showing {props.games.length} games</Text>
+            <Text fontSize={2}>
+              Showing{' '}
+              {filteredGames.length !== props.games.length
+                ? `${filteredGames.length} out of ${props.games.length} total games`
+                : `all ${props.games.length} games`}
+            </Text>
           </Media.SmallOnly>
         </Flex>
       </Flex>
@@ -211,7 +217,7 @@ export const GameList = props => {
         </Flex>
       )}
       <Flex flexDirection="column" alignItems="flex-start" as="section">
-        {filterGames().map(({ game }) => {
+        {filteredGames.map(({ game }) => {
           return <GameCard key={game.title} game={game} />;
         })}
       </Flex>
