@@ -1,11 +1,11 @@
-const contentful = require('contentful-management')
+const contentful = require('contentful-management');
 require('dotenv').config();
 
 const client = contentful.createClient({
-  accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN
+  accessToken: process.env.CONTENTFUL_MANAGEMENT_TOKEN,
 });
 
-exports.handler = async function (event, content, callback) {
+exports.handler = async function(event, content, callback) {
   // console.log('EVENT', event)
   // console.log('CONTENT', content)
   let { body } = event;
@@ -41,28 +41,26 @@ exports.handler = async function (event, content, callback) {
     const environment = await space.getEnvironment('master');
     // console.log("ENVIRONMENT", environment);
     entry = await environment.createEntry('game', body);
-    publishedEntry = await entry.publish()
+    publishedEntry = await entry.publish();
     // console.log("ENTRY", publishedEntry);
 
     const returnEntry = {
       published: true,
       id: publishedEntry.sys.id,
-      ...publishedEntry.fields
-    }
+      ...publishedEntry.fields,
+    };
 
     return callback(null, {
       statusCode: 200,
       body: JSON.stringify(returnEntry),
-    }) 
-
+    });
   } catch (error) {
     // delete the entry if it exists i guess
     const { message } = error;
-    console.log('-------------------------')
-    console.log('ERROR',error)
-    console.log('-------------------------')
+    console.log('-------------------------');
+    console.log('ERROR', error);
+    console.log('-------------------------');
     await entry.delete();
     return callback(JSON.stringify(error));
   }
-  
-}
+};
