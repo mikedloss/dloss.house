@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Flex, Box, Text, Heading, Image } from 'rebass';
 import Confetti from 'react-dom-confetti';
+import dayjs from 'dayjs';
 
 import DifficultyBadge from '../../components/DifficultyBadge';
 import * as Media from '../Elements/media';
@@ -24,6 +25,11 @@ export const GameProfile = ({ game, addGameState }) => {
               This is a <strong>{game.type}</strong>
             </Text>
           )}
+          {game.updatedAt && (
+            <Text fontSize={0}>
+              Last updated on {dayjs(game.updatedAt).format('MMMM DD, YYYY')}
+            </Text>
+          )}
         </Box>
       </Flex>
       <Box width="100%">
@@ -43,16 +49,18 @@ export const GameProfile = ({ game, addGameState }) => {
             <Text>{game.bggRating ? game.bggRating : 'No data found'}</Text>
           </Box>
           <Box my="0.5rem">
+            <Heading fontSize={2}>BGG Rank</Heading>
+            <Text>{game.bggRank ? game.bggRank : 'No data found'}</Text>
+          </Box>
+          <Box my="0.5rem">
             <Heading fontSize={2}>Difficulty (Weight)</Heading>
             <Flex alignItems="center">
               {game.difficulty ? (
-                <>
+                <React.Fragment>
                   <Text mr="0.5rem">{game.difficulty} / 5</Text>
                   <DifficultyBadge difficulty={game.difficulty} />
-                </>
-              ) : (
-                'No data found'
-              )}
+                </React.Fragment>
+              ) : 'No data found'}
             </Flex>
           </Box>
           <Box my="0.5rem">

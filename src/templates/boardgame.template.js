@@ -32,21 +32,24 @@ export default BoardGameTemplate;
 export const pageQuery = graphql`
   query GameByBggId($bggId: Int) {
     game: contentfulGame(bggId: { eq: $bggId }) {
-      title
+      averagePlayingTime
       bggId
-      image
       bggRating
-      difficulty
-      minPlayers
-      maxPlayers
-      minPlayingTime
-      maxPlayingTime
+      bggRank
       categories
-      mechanisms
       description {
         description
       }
+      difficulty
+      image
+      minPlayers
+      minPlayingTime
+      maxPlayers
+      maxPlayingTime
+      mechanisms
+      title
       type
+      updatedAt
     }
   }
 `;
