@@ -78,12 +78,18 @@ const updateEntry = async (game) => {
   }
   // log.debug('UPDATING -> options', options)
   log.info(`Updating ${fields.title['en-US']}`);
-  let data = await rp(options);
-  log.debug('UPDATING - WAITING 1 SECOND')
-  await sleep(1000);
-  log.debug('UPDATING - 1 SECOND has PASSED')
-  // console.log(data)
-  return data;
+  let data;
+  try {
+    data = await rp(options);
+  } catch (e) {
+    log.error(`Error with ${game.fields.title['en-US']}`, e)
+  } finally {
+    log.debug('UPDATING - WAITING 1 SECOND')
+    await sleep(2000);
+    log.debug('UPDATING - 1 SECOND has PASSED')
+    // console.log(data)
+    return data;
+  }
 }
 
 const publishEntry = async (game) => {
@@ -99,21 +105,31 @@ const publishEntry = async (game) => {
     }
   }
   // log.debug('PUBLISHING -> options', options)
-  log.info(`Publishing ${game.fields.title['en-US']}`);
-  let data = await rp(options)
-  log.debug('PUBLISHING - WAITING 1 SECOND')
-  await sleep(1000);
-  log.debug('PUBLISHING - 1 SECOND has PASSED')
-  return data;
+  log.info(`Publishing ${game.fields.title['en-US']}, version ${version}`);
+  let data;
+  try {
+    data = await rp(options)
+  } catch (e) {
+    log.error(`Error with ${game.fields.title['en-US']}`, e)
+  } finally {
+    log.debug('PUBLISHING - WAITING 1 SECOND')
+    await sleep(1000);
+    log.debug('PUBLISHING - 1 SECOND has PASSED')
+    return data;
+  }
 }
 
 const updateContentful = async (games) => {
+  const delayIncrement = 500;
+  let delay = 0;
   let updates = await Promise.all(games.map(async game => {
-    let updatedEntry = await updateEntry(game);
-    log.info('SLEEPING BETWEEN Update AND PUBLISH');
-    await sleep(1000);
-    let publishedEntry = await publishEntry(updatedEntry);
-    return publishedEntry;
+    new Promise(resolve => setTimeout(resolve, delay)).then(async () => {
+      let updatedEntry = await updateEntry(game);
+      await sleep(1000);
+      let publishedEntry = await publishEntry(updatedEntry);
+      return publishedEntry;
+    })
+    delay += delayIncrement;
   }))
 
   return updates;
