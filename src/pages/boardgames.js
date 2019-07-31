@@ -34,6 +34,7 @@ export const pageQuery = graphql`
           maxPlayingTime
           difficulty
           bggRating
+          bggRank
           thumbnail
         }
       }

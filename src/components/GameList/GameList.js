@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Heading, Flex, Box, Text, Card } from 'rebass';
-import { isEqual } from 'lodash';
+import { isEqual, clone } from 'lodash';
 
 import GameCard from '../GameCard';
 import { determineDifficulty } from '../../components/DifficultyBadge';
 import * as Styles from './GameList.style';
-import * as Media from '../../components/Elements/media';
 // import { isLoggedIn, isAdmin } from '../../services/auth';
 
-export const GameList = props => {
+export const GameList = ({ games, ...props }) => {
   const defaultFilters = {
     difficulty: 'any',
     players: 'any',
@@ -24,8 +23,8 @@ export const GameList = props => {
   const playersFilter = filters.players && filters.players !== 'any';
   const playingTimeFilter = filters.playingTime && filters.playingTime !== 'any';
 
-  const filterGames = () => {
-    let filteredGames = props.games;
+  const filterGames = (games) => {
+    let filteredGames = games;
 
     // filter difficulty
     if (difficultyFilter) {
@@ -49,16 +48,34 @@ export const GameList = props => {
     return filteredGames;
   };
 
-  const filteredGames = filterGames();
+  const sortGames = (games) => {
+    const sortAsc = (a, b) => a > b ? 1 : b > a ? -1 : 0;
+    const sortDesc = (a, b) => b > a ? 1 : a > b ? -1 : 0;
 
-  filteredGames.sort((a, b) => {
-    const [key, order] = sortKey.split(':');
-    if (order === 'asc') {
-      return a.game[key] > b.game[key] ? 1 : b.game[key] > a.game[key] ? -1 : 0;
-    } else {
-      return b.game[key] > a.game[key] ? 1 : a.game[key] > b.game[key] ? -1 : 0;
-    }
-  });
+    
+    let sortedGames = clone(games);
+    // debugger;
+    sortedGames.sort((a, b) => {
+      const [key, order] = sortKey.split(':');
+      if(['bggRank'].includes(key)) {
+        if (order === 'asc') {
+          return parseFloat(a.game[key]) - parseFloat(b.game[key])
+        } else {
+          return parseFloat(b.game[key]) - parseFloat(a.game[key])
+        }
+      } else {
+        if (order === 'asc') {
+          return sortAsc(a.game[key], b.game[key])
+        } else {
+          return sortDesc(a.game[key], b.game[key])
+        }
+      }
+    })
+    return sortedGames;
+  }
+
+  const filteredGames = filterGames(games);
+  const sortedGames = sortGames(filteredGames);
 
   return (
     <>
@@ -67,9 +84,9 @@ export const GameList = props => {
           <Heading fontSize={5}>Board Games</Heading>
           <Text fontSize={['2', '3']}>
             Showing{' '}
-            {filteredGames.length !== props.games.length
-              ? `${filteredGames.length} out of ${props.games.length} total games`
-              : `all ${props.games.length} games`}
+            {sortedGames.length !== games.length
+              ? `${sortedGames.length} out of ${games.length} total games`
+              : `all ${games.length} games`}
           </Text>
         </Flex>
       </Flex>
@@ -85,6 +102,7 @@ export const GameList = props => {
             <Styles.SelectField value={sortKey} onChange={e => setSortKey(e.target.value)}>
               <option value="title:asc">Title (A-Z)</option>
               <option value="bggRating:desc">Highest rated first</option>
+              <option value="bggRank:asc">Highest ranked game first</option>
               <option value="difficulty:asc">Least difficult first</option>
               <option value="difficulty:desc">Most difficult first</option>
               <option value="averagePlayingTime:asc">Shortest playing time first</option>
@@ -211,7 +229,7 @@ export const GameList = props => {
         </Flex>
       )}
       <Flex flexDirection="column" alignItems="flex-start" as="section">
-        {filteredGames.map(({ game }) => {
+        {sortedGames.map(({ game }) => {
           return <GameCard key={game.title} game={game} />;
         })}
       </Flex>

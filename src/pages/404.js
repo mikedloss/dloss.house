@@ -33,7 +33,7 @@ const NotFoundPage = () => {
         {dogLink && (
           <Flex flexDirection="column" alignItems="center" width="400px">
             <Text>Will this picture cheer you up?</Text>
-            <img src={dogLink} alt="a picture of a dog" />
+            <img src={dogLink} alt="a dog" />
           </Flex>
         )}
         <Box mt="1rem">
