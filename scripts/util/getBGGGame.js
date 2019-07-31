@@ -1,4 +1,5 @@
 const axios = require('axios');
+const rp = require('request-promise');
 const cheerio = require('cheerio');
 const buildGameObject  = require('./buildGameObject');
 
@@ -10,9 +11,13 @@ const getBGGGame = async (id) => {
   }
 
   let gameUrl = `${URL}${id}`;
-  const data = await axios.get(gameUrl);
+  let options = {
+    uri: gameUrl
+  }
+  // const data = await axios.get(gameUrl);
+  const data = await rp(options);
 
-  const $ = cheerio.load(data.data, { xmlMode: true });
+  const $ = cheerio.load(data, { xmlMode: true });
 
   if ($('items').children().length === 0) {
     // return callback(`Game not found (${id})`);

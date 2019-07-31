@@ -1,8 +1,13 @@
 require('dotenv').config();
 
 const axios = require('axios');
+const rp = require('request-promise');
 const _ = require('lodash');
+
 const getBGGGame = require('./util/getBGGGame');
+const enUS = require('./util/enUS');
+const sleep = require('./util/sleep');
+const log = require('./util/log');
 
 const buildURL = (customPath = '', hasContentTypeQuery = true) => {
   const BASE_URL = `https://api.contentful.com/spaces/${process.env.CONTENTFUL_SPACE_ID}`;
@@ -12,111 +17,123 @@ const buildURL = (customPath = '', hasContentTypeQuery = true) => {
   return `${BASE_URL}${customPath}?${hasContentTypeQuery ? CONTENT_TYPE : ''}${AUTH_QUERY}`;
 }
 
-const removeENUS = (game) => {
-  Object.keys(game.fields).forEach(k => {
-    game['fields'][k] = game['fields'][k]['en-US']
-  })
-  return game;
-}
-
-const addENUS = (game) => {
-  Object.keys(game.fields).forEach(k => {
-    game['fields'][k] = {
-      'en-US': game['fields'][k]
-    }
-  })
-  return game;
-}
-
-const sleep = (ms) => {
-  return new Promise(resolve=>{
-      setTimeout(resolve, ms)
-  })
-}
-
 const checkForUpdates = async (games) => {
   let updates = await Promise.all(games.map(async game => {
-    game = removeENUS(game);
+    game = enUS.remove(game);
     const { fields } = game;
+    const customGame = ['Jenga'].includes(fields.title);
 
+    log.debug(`Getting ${fields.title} from BGG`);
     const bggGame = await getBGGGame(fields.bggId);
+    // await sleep(1000);
+
+    customGame && log.debug(`====================`)
+    customGame && log.debug(`Checking for updates on ${fields.title}`);
+    customGame && log.debug(fields);
 
     let needsUpdate = false;
   
-    Object.keys(fields).forEach(k => {
-      if (_.isArray(fields[k])) {
-        if (!_.isEqual(fields[k].sort(), bggGame[k].sort())) {
+    Object.keys(bggGame).forEach(k => {
+      customGame && log.debug(`k = ${k}`)
+      customGame && log.debug('fields[k]: ', fields[k])
+      customGame && log.debug('bggGame[k]:', bggGame[k])
+      if (_.isArray(bggGame[k])) {
+        customGame && log.debug('bggGame[k] is an array')
+        if (!fields[k]) {
+          log.debug(`bggGame[k] is empty (${_.isEmpty(bggGame[k])}) and we have nothing in fields[k] (${fields[k]})`);
+          needsUpdate = true;
+        } else if (!_.isEqual(bggGame[k].sort(), fields[k].sort())) {
+          log.debug(`Need to update ${fields.title} because of ${k} (an array)`);
           needsUpdate = true;
         }
-      } else if(fields[k] != bggGame[k]) {
+      } else if(bggGame[k] != fields[k]) {
+        log.debug(`Need to update ${bggGame.title} because of ${k}`);
         needsUpdate = true;
       }
     })
 
-    // console.log(game);
-
+    customGame && log.debug(`====================`)
     if (needsUpdate) {
-      return addENUS({ ...game, fields: bggGame });
-    } else {
-      return undefined
+      return enUS.add({ ...game, fields: bggGame });
     }
   }))
-  return updates.filter(n => n)
+
+  updates = updates.filter(n => n);
+  return updates;
 }
 
-const updateContentful = async (game) => {
+const updateEntry = async (game) => {
   const { fields, sys: { id } } = game;
-  let { sys: { version } } = game;
-  // console.log(`Updating ${game.fields.title['en-US']}`);
-  // console.log('game: ', game);
-  let url = buildURL(`/environments/master/entries/${id}`, false)
-  // console.log('url: ', url);
-  // console.log('id: ', id)
-  // console.log('version: ', version)
-  try {
-    // update
-    let data = await axios({
-      url,
-      method: 'put',
-      data: { fields }, 
-      headers: { 'X-Contentful-Version': version }
-    });
-    console.log(`Updated ${game.fields.title['en-US']}`);
-    
-    await sleep(50);
-    // publish
-    version = data.data.sys.version;
-    url = buildURL(`/environments/master/entries/${id}/published`, false)
-    data = await axios({
-      url,
-      method: 'put',
-      headers: { 'X-Contentful-Version': version }
-    });
-    console.log(`Published ${game.fields.title['en-US']}`);
-    
-  } catch (e) { 
-    console.log(`Error on ${game.fields.title['en-US']}: ${e.response.data}`);
-  }  
+  const { sys: { version } } = game;
+  // log.debug('UPDATING -> game', game)
+  const url = buildURL(`/environments/master/entries/${id}`, false)
+  const options = {
+    uri: url,
+    method: 'put',
+    body: { fields },
+    json: true,
+    headers: {
+      'X-Contentful-Version': version,
+    }
+  }
+  // log.debug('UPDATING -> options', options)
+  log.info(`Updating ${fields.title['en-US']}`);
+  let data = await rp(options);
+  log.debug('UPDATING - WAITING 1 SECOND')
+  await sleep(1000);
+  log.debug('UPDATING - 1 SECOND has PASSED')
+  // console.log(data)
+  return data;
+}
+
+const publishEntry = async (game) => {
+  const { sys: { id } } = game;
+  const { sys: { version } } = game;
+  // log.debug('PUBLISHING -> game', game)
+  const url = buildURL(`/environments/master/entries/${id}/published`, false)
+  const options = {
+    uri: url,
+    method: 'put',
+    headers: {
+      'X-Contentful-Version': version,
+    }
+  }
+  // log.debug('PUBLISHING -> options', options)
+  log.info(`Publishing ${game.fields.title['en-US']}`);
+  let data = await rp(options)
+  log.debug('PUBLISHING - WAITING 1 SECOND')
+  await sleep(1000);
+  log.debug('PUBLISHING - 1 SECOND has PASSED')
+  return data;
+}
+
+const updateContentful = async (games) => {
+  let updates = await Promise.all(games.map(async game => {
+    let updatedEntry = await updateEntry(game);
+    log.info('SLEEPING BETWEEN Update AND PUBLISH');
+    await sleep(1000);
+    let publishedEntry = await publishEntry(updatedEntry);
+    return publishedEntry;
+  }))
+
+  return updates;
 }
 
 const updateAllGames = async () => {
   // first, get all games 
   const url = buildURL('/environments/master/entries');
   const data = await axios.get(url);
+  log.info('Checking for game updates...')
   const gameUpdates = await checkForUpdates(data.data.items)
-
-  // console.log(gameUpdates[0]);
-  // console.log(gameUpdates.length);
+  log.info('Finished checking for game updates')
   
   // lastly, update contentful
   if (gameUpdates.length) {
-    let stuff = await Promise.all(gameUpdates.forEach(async game => {
-      await updateContentful(game);
-      await sleep(50);
-    }))
-    console.log(`${gameUpdates.length} games have been updated on Contentful!`)
+    let contentfulUpdates = await updateContentful(gameUpdates);
+    console.log(contentfulUpdates);
+    log.info(`${gameUpdates.length} games have been updated on Contentful! 🎉`)
   } else {
-    console.log('No games need updated!')
+    log.info('No games need updated!')
   }
 }
 

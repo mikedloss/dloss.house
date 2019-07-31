@@ -1,4 +1,5 @@
 const Entities = require('html-entities').XmlEntities;
+const log = require('./log');
 
 const TYPES = {
   'boardgame': 'Board Game',
@@ -33,7 +34,10 @@ const buildGameObject = (data) => {
   let ranksObj = data('statistics').find('ratings').find('ranks').children()
   Object.keys(ranksObj).forEach(key => {
     if (ranksObj[key].attribs && ranksObj[key].attribs.friendlyname === 'Board Game Rank') {
-      bggRank = ranksObj[key].attribs.value;
+      bggRank = parseFloat(ranksObj[key].attribs.value);
+      if (isNaN(bggRank)) {
+        bggRank = null;
+      }
     } else {
       return false;
     }
@@ -49,6 +53,8 @@ const buildGameObject = (data) => {
       mechanisms.push(el.attribs.value);
     }
   });
+  if (categories.length == 0) { categories.push('None') }
+  if (mechanisms.length == 0) { mechanisms.push('None') }
 
   return {
     bggId,
