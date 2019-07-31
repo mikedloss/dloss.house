@@ -37,12 +37,13 @@ exports.handler = async function(event, content, callback) {
 
   try {
     const space = await client.getSpace(process.env.CONTENTFUL_SPACE_ID);
-    // console.log("SPACE", space)
+    console.log("SPACE", space)
     const environment = await space.getEnvironment('master');
-    // console.log("ENVIRONMENT", environment);
+    console.log("ENVIRONMENT", environment);
     entry = await environment.createEntry('game', body);
+    console.log("ENTRY", entry);
     publishedEntry = await entry.publish();
-    // console.log("ENTRY", publishedEntry);
+    console.log("PUBLISHEDENTRY", publishedEntry);
 
     const returnEntry = {
       published: true,
@@ -60,7 +61,6 @@ exports.handler = async function(event, content, callback) {
     console.log('-------------------------');
     console.log('ERROR', error);
     console.log('-------------------------');
-    await entry.delete();
     return callback(JSON.stringify(error));
   }
 };
