@@ -1,5 +1,5 @@
 require('dotenv').config();
-var proxy = require("http-proxy-middleware")
+var proxy = require('http-proxy-middleware');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -11,14 +11,14 @@ module.exports = {
   },
   developMiddleware: app => {
     app.use(
-      "/.netlify/functions/",
+      '/.netlify/functions/',
       proxy({
-        target: "http://localhost:9000",
+        target: 'http://localhost:9000',
         pathRewrite: {
-          "/.netlify/functions/": "",
+          '/.netlify/functions/': '',
         },
-      })
-    )
+      }),
+    );
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -29,14 +29,15 @@ module.exports = {
         accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN,
       },
     },
-    {
-      resolve: 'gatsby-plugin-styled-components',
-      options: {
-        displayName: isDev,
-      },
-    },
+    'gatsby-plugin-emotion',
+    // {
+    //   resolve: 'gatsby-plugin-styled-components',
+    //   options: {
+    //     displayName: isDev,
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // 'gatsby-plugin-offline',
   ],
-}
+};

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { breakpointValues as bp } from './theme';
 
 //////////////////// SMALL
