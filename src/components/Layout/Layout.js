@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'emotion-theming';
+import { Global } from '@emotion/core';
 
 import Header from '../Header';
 import Footer from '../Footer';
@@ -12,7 +13,7 @@ import * as Styles from './Layout.styles';
 export const Layout = ({ children }) => (
   <ThemeProvider theme={theme}>
     <>
-      <GlobalStyle />
+      <Global styles={GlobalStyle} />
       <Header />
       <Styles.ContentContainer>
         {children}
