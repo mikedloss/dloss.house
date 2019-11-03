@@ -26,11 +26,11 @@
     "react-dom": "^16.8.5",
     "react-dom-confetti": "^0.1.0",
     "react-helmet": "^5.2.0",
-    "rebass": "^3.1.0",
+    "rebass": "^4.0.7",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "styled-components": "^4.2.0",
-    "styled-system": "^4.0.8",
+    "styled-system": "^5.1.2",
     "utf8": "^3.0.0"
   },
   "devDependencies": {

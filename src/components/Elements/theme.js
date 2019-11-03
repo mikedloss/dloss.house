@@ -26,6 +26,12 @@ export const colors = {
   grey: '#8795a1',
 };
 
+export const fonts = {
+  body: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+  heading:
+    '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
+};
+
 export const buttons = {
   default: {
     backgroundColor: colors.alternate,
@@ -50,6 +56,7 @@ export const buttons = {
 export default {
   colors,
   fontSizes,
+  fonts,
   breakpoints,
   buttons,
 };

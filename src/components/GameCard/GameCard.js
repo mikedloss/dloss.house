@@ -9,7 +9,15 @@ import * as Media from '../Elements/media';
 
 export const GameCard = ({ game }) => {
   return (
-    <Card borderRadius="4px" boxShadow="0 4px 8px rgba(0, 0, 0, 0.25)" p="1rem" mb="1rem" width="100%">
+    <Card
+      sx={{
+        borderRadius: '4px',
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.25)',
+      }}
+      p="1rem"
+      mb="1rem"
+      width="100%"
+    >
       <Flex
         flexDirection={['column', 'row']}
         width="100%"
