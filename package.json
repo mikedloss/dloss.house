@@ -1,0 +1,30 @@
+{
+  "name": "dloss.house",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rimraf ./next",
+    "deepclean": "yarn clean && rimraf ./yalc && rimraf ./node_modules"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^1.0.0-rc.8",
+    "@dloss/house": "^0.1.10",
+    "contentful": "^7.14.8",
+    "framer-motion": "^2.9.4",
+    "next": "10.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-icons": "^3.11.0",
+    "sass": "^1.28.0",
+    "swr": "^0.3.8"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.5",
+    "@types/react": "^16.9.54",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.5"
+  }
+}
