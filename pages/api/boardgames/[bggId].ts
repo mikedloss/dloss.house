@@ -1,13 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getBoardgameByBggId } from '../../../lib/contentful';
+import { getBoardGameByBggId } from '../../../lib/contentful';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { bggId },
   } = req;
 
-  const games = await getBoardgameByBggId(bggId as string);
+  const games = await getBoardGameByBggId(bggId as string);
 
   if (games.length === 0) {
     res.statusCode = 404;
