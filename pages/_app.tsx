@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import { HouseProvider } from '@dloss/house';
 
 import { Header } from '../components/Header';
-import { Box, Center, Container } from '@chakra-ui/core';
+import { Container } from '@chakra-ui/core';
 
 import '../styles/global.scss';
 

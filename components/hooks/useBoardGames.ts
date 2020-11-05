@@ -1,7 +1,16 @@
 import useSWR from 'swr';
 
-export const useBoardGames = () => {
-  const { data, error } = useSWR('/api/boardgames/all');
+import { BoardGame } from '../../lib/models/Game';
+import { fetcher } from '../../lib/fetch';
+
+export const useBoardGames = (bggId?: string) => {
+  let url = '';
+  if (bggId) {
+    url = `/api/boardgames/${bggId}`;
+  } else {
+    url = `/api/boardgames/all`;
+  }
+  const { data, error } = useSWR<BoardGame[]>(url, fetcher);
 
   return {
     games: data,
