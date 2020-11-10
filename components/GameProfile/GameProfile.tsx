@@ -29,7 +29,14 @@ export const GameProfile: React.FC<GameProfileProps> = ({ game }) => {
     <Flex flexDirection="column">
       <Flex flexDirection="column" marginBottom="2rem">
         <Heading>{game.title}</Heading>
-        {game.type && <Text fontSize="sm">This is a {game.type}</Text>}
+        {game.type && (
+          <Text fontSize="sm">
+            This is a{' '}
+            <Text as="span" fontSize="sm" fontWeight="bold">
+              {game.type}
+            </Text>
+          </Text>
+        )}
       </Flex>
 
       <Flex flexDirection={{ base: 'column', md: 'row-reverse' }}>

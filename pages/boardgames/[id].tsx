@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, Center, Flex, Heading, Skeleton, Text } from '@chakra-ui/core';
+import { Box, Center, Flex, Heading, Skeleton, Spinner, Text, Fade } from '@chakra-ui/core';
 
 import { NotFound } from '../../components/NotFound';
 import { BoardGame } from '../../lib/models/Game';
@@ -19,7 +19,14 @@ const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
   return (
     <>
       {isLoading ? (
-        <Skeleton height="20px" />
+        <Fade in={isLoading}>
+          <Center height="100vh">
+            <Flex alignItems="center">
+              <Spinner size="xl" />
+              <Heading marginLeft="1rem">Loading...</Heading>
+            </Flex>
+          </Center>
+        </Fade>
       ) : isError || count === 0 ? (
         <NotFound>
           <Heading>Not found!</Heading>

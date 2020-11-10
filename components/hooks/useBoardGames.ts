@@ -12,6 +12,7 @@ export const useBoardGames = (bggId?: string) => {
   }
   const { data, error, mutate, isValidating } = useSWR<BoardGame[]>(url, fetcher, {
     revalidateOnFocus: false,
+    revalidateOnReconnect: false,
   });
 
   return {
