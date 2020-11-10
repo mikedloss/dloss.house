@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 
 import {
+  Box,
+  Button,
   Flex,
   Heading,
   IconButton,
@@ -9,10 +11,11 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Text,
   useColorMode,
   useColorModeValue,
   useMediaQuery,
-  Button,
+  MenuDivider,
 } from '@chakra-ui/core';
 import { FiMoon, FiSun, FiMenu } from 'react-icons/fi';
 
@@ -43,20 +46,13 @@ const MenuLink: React.FC<MenuLinkProps> = ({ link }) => {
 export const Header: React.FC = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const headerBg = useColorModeValue('yellow.200', 'purple.800');
-  const [isLargerThan768] = useMediaQuery(['(min-width: 768px)']);
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
   const isLightMode = colorMode === 'light';
   const iconButtonLabel = isLightMode ? 'toggle dark mode' : 'toggle light mode';
 
   return (
-    <Flex
-      as="nav"
-      justifyContent="space-between"
-      alignItems="center"
-      backgroundColor={headerBg}
-      width="100%"
-      padding="0.625rem"
-    >
+    <Flex justifyContent="space-between" alignItems="center" backgroundColor={headerBg} width="100%" padding="0.625rem">
       <Link href="/">
         <Heading as="a" size="md">
           dloss
@@ -66,14 +62,21 @@ export const Header: React.FC = () => {
         </Heading>
       </Link>
       {isLargerThan768 ? (
-        <Flex alignItems="center">
+        <Flex alignItems="center" className="hello">
           {links.map((link) => {
-            return <MenuLink link={link} key={link.path} />;
+            return (
+              <Link href={link.path} key={link.path}>
+                <Heading as="a" size="md">
+                  <span>{link.title}</span>
+                </Heading>
+              </Link>
+            );
           })}
           <IconButton
             aria-label={iconButtonLabel}
             icon={isLightMode ? <FiMoon /> : <FiSun />}
             onClick={toggleColorMode}
+            marginLeft="0.625rem"
           />
         </Flex>
       ) : (
@@ -89,6 +92,15 @@ export const Header: React.FC = () => {
                 </MenuItem>
               );
             })}
+            <MenuDivider />
+            <MenuItem>
+              <Flex alignItems="center" onClick={toggleColorMode}>
+                <Text fontSize="sm" marginRight="0.625rem">
+                  {isLightMode ? 'Dark Mode' : 'Light Mode'}
+                </Text>
+                <Box>{isLightMode ? <FiMoon /> : <FiSun />}</Box>
+              </Flex>
+            </MenuItem>
           </MenuList>
         </Menu>
       )}
