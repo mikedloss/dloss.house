@@ -6,7 +6,7 @@ import { FiMoon, FiSun } from 'react-icons/fi';
 
 export const links = [
   {
-    path: 'boardgames',
+    path: '/boardgames',
     title: 'Board Games 🎲',
   },
 ];

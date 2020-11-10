@@ -3,6 +3,7 @@ import { Box, Flex, Heading, Image, Stat, StatLabel, StatNumber, useColorModeVal
 
 import { DifficultyBadge } from '../DifficultyBadge';
 import { BoardGame } from '../../lib/models/Game';
+import Link from 'next/link';
 
 interface StatInfoProps {
   label: string;
@@ -55,7 +56,11 @@ export const GameSummary: React.FC<GameSummaryProps> = ({ game }) => {
             marginRight={{ base: '0', md: '1rem' }}
           />
           <Flex flexDirection="column" marginBottom="0.25rem">
-            <Heading size="md">{game.title}</Heading>
+            <Link href={`/boardgames/${game.bggId}`}>
+              <Heading size="md" as="a">
+                {game.title}
+              </Heading>
+            </Link>
             <DifficultyBadge difficulty={game.difficulty} />
           </Flex>
         </Flex>

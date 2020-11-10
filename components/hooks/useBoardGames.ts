@@ -10,12 +10,15 @@ export const useBoardGames = (bggId?: string) => {
   } else {
     url = `/api/boardgames/all`;
   }
-  const { data, error } = useSWR<BoardGame[]>(url, fetcher);
+  const { data, error, mutate, isValidating } = useSWR<BoardGame[]>(url, fetcher, {
+    revalidateOnFocus: false,
+  });
 
   return {
     games: data,
+    refresh: mutate,
     count: data ? data.length : undefined,
-    isLoading: !error && !data,
+    isLoading: isValidating || (!error && !data),
     isError: !!error,
     error,
   };
