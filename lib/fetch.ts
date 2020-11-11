@@ -5,7 +5,7 @@ interface ResponseError extends Error {
   info?: any;
 }
 
-export const fetcher = async (url) => {
+export const fetcher = async <T>(url): Promise<T> => {
   const res = await fetch(url);
 
   if (!res.ok) {

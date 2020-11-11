@@ -16,3 +16,8 @@ export interface BoardGame {
   type: string;
   bggRank: number;
 }
+
+export interface SearchedGame {
+  id: string;
+  title: string;
+}
