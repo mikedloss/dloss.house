@@ -8,6 +8,7 @@ export const resolvers = {
     },
     getBoardGame: async (_, args) => {
       const games = await getBoardGameByBggId(args.id);
+      console.log(`games`, games);
       return games;
     },
   },

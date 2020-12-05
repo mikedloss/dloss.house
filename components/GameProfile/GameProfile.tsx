@@ -62,7 +62,7 @@ export const GameProfile: React.FC<GameProfileProps> = ({ game }) => {
               game.minPlayers && game.maxPlayers
                 ? game.minPlayers === game.maxPlayers
                   ? game.minPlayers
-                  : `${game.minPlayers}-${game.maxPlayers}`
+                  : game.players
                 : null
             }
           />
@@ -72,7 +72,7 @@ export const GameProfile: React.FC<GameProfileProps> = ({ game }) => {
               game.minPlayingTime && game.maxPlayingTime
                 ? game.minPlayingTime === game.maxPlayingTime
                   ? game.minPlayingTime
-                  : `${game.minPlayingTime}-${game.maxPlayingTime}`
+                  : game.playingTime
                 : null
             }
           />

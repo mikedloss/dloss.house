@@ -15,6 +15,8 @@ export interface BoardGame {
   description: string;
   type: string;
   bggRank: number;
+  playingTime: string;
+  players: string;
 }
 
 export interface SearchedGame {

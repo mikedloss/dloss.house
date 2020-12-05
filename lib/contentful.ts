@@ -6,7 +6,16 @@ const client = createClient({
 });
 
 const parseBoardGames = (entries: EntryCollection<any>) => {
-  return entries?.items?.map(({ fields }) => ({ ...fields })) || [];
+  return (
+    entries?.items?.map(({ fields }) => {
+      console.log(`fields`, fields);
+      return {
+        ...fields,
+        playingTime: `${fields.minPlayingTime}-${fields.maxPlayingTime}`,
+        players: `${fields.minPlayers}-${fields.maxPlayers}`,
+      };
+    }) || []
+  );
 };
 
 export const getAllBoardGames = async () => {
