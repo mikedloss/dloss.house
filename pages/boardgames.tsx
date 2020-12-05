@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading, Text, Divider, Skeleton, IconButton } from '@chakra-ui/core';
+import { Flex, Heading, Text, Divider, Skeleton, IconButton } from '@chakra-ui/react';
 import { FiRefreshCw } from 'react-icons/fi';
 
 import { useBoardGames } from '../components/hooks';

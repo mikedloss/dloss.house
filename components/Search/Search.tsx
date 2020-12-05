@@ -19,7 +19,7 @@ import {
   Text,
   useColorModeValue,
   useDisclosure,
-} from '@chakra-ui/core';
+} from '@chakra-ui/react';
 import { FiPlus, FiSearch } from 'react-icons/fi';
 import isEmpty from 'lodash/isEmpty';
 

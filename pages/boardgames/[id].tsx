@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, Center, Flex, Heading, Skeleton, Spinner, Text, Fade } from '@chakra-ui/core';
+import { Box, Center, Flex, Heading, Skeleton, Spinner, Text, Fade } from '@chakra-ui/react';
 
 import { NotFound } from '../../components/NotFound';
 import { BoardGame } from '../../lib/models/Game';

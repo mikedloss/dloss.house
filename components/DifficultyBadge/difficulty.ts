@@ -1,4 +1,4 @@
-import { customTheme } from '@dloss/house';
+import { theme } from '@chakra-ui/react';
 
 export interface Difficulty {
   shortName: string;
@@ -10,31 +10,31 @@ const difficultyEasy = {
   shortName: 'Easy',
   longName: 'Piece of cake!',
   // color: '#3490DC',
-  color: customTheme.colors.blue['400'],
+  color: theme.colors.blue['400'],
 };
 const difficultyMedium = {
   shortName: 'Medium',
   longName: 'Will of iron, knees of Jello',
   // color: '#6574CD',
-  color: customTheme.colors.purple['400'],
+  color: theme.colors.purple['400'],
 };
 const difficultyHard = {
   shortName: 'Hard',
   longName: 'Things just got real...',
   // color: '#F6993F',
-  color: customTheme.colors.orange['400'],
+  color: theme.colors.orange['400'],
 };
 const difficultyExpert = {
   shortName: 'Expert',
   longName: 'No pain, no gain!',
   // color: '#E3342F',
-  color: customTheme.colors.red['700'],
+  color: theme.colors.red['700'],
 };
 const difficultyIDK = {
   shortName: '???',
   longName: "I don't know!",
   // color: '#8795A1',
-  color: customTheme.colors.gray['400'],
+  color: theme.colors.gray['400'],
 };
 
 export const difficulties = {

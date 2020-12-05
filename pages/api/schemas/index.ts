@@ -1,12 +1,6 @@
 import { gql } from 'apollo-server-micro';
 
 export const typeDefs = gql`
-  type User {
-    id: ID
-    login: String
-    avatar_url: String
-  }
-
   type BoardGame {
     title: String
     bggId: ID
@@ -29,7 +23,5 @@ export const typeDefs = gql`
   type Query {
     getBoardGames: [BoardGame]
     getBoardGame(id: String!): [BoardGame!]
-    getUsers: [User]
-    getUser(name: String!): User!
   }
 `;

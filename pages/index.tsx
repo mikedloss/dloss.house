@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { Heading, Text, Flex, Divider } from '@chakra-ui/core';
+import { Heading, Text, Flex, Divider } from '@chakra-ui/react';
 
 import { links } from '../components/Header';
 

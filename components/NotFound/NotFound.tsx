@@ -1,5 +1,5 @@
 import React from 'react';
-import { Center, Text, Image, Flex } from '@chakra-ui/core';
+import { Center, Text, Image, Flex } from '@chakra-ui/react';
 
 import { usePupper } from '../hooks/usePupper';
 

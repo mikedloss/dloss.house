@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Heading, Image, Stat, StatLabel, StatNumber, useColorModeValue } from '@chakra-ui/core';
+import { Box, Flex, Heading, Image, Stat, StatLabel, StatNumber, useColorModeValue } from '@chakra-ui/react';
 
 import { DifficultyBadge } from '../DifficultyBadge';
 import { BoardGame } from '../../lib/models/Game';

@@ -1,19 +1,18 @@
 import { AppProps } from 'next/app';
-import { HouseProvider } from '@dloss/house';
 
 import { Header } from '../components/Header';
-import { Container } from '@chakra-ui/core';
+import { Container, ChakraProvider } from '@chakra-ui/react';
 
 import '../styles/global.scss';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <HouseProvider>
+    <ChakraProvider>
       <Header />
       <Container maxWidth="1200px" marginY="1rem">
         <Component {...pageProps} />
       </Container>
-    </HouseProvider>
+    </ChakraProvider>
   );
 };
 

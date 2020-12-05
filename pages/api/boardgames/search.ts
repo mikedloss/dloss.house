@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       });
     });
 
-  games.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0));
+  // games.sort((a, b) => (a.id > b.id ? 1 : b.id > a.id ? -1 : 0));
 
   res.statusCode = 200;
   res.json(games);

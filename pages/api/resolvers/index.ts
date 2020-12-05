@@ -1,6 +1,3 @@
-import axios from 'axios';
-import useSWR from 'swr';
-
 import { getAllBoardGames, getBoardGameByBggId } from '../../../lib/contentful';
 
 export const resolvers = {
