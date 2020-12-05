@@ -1,6 +1,6 @@
 export interface BoardGame {
   title: string;
-  bggId: number;
+  bggId: string;
   image: string;
   thumbnail: string;
   bggRating: string;

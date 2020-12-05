@@ -2,6 +2,7 @@ import { getBoardGames } from './getBoardGames';
 import { getBoardGame } from './getBoardGame';
 import { inspectBoardGame } from './inspectBoardGame';
 import { searchForBoardGame } from './searchForBoardGame';
+import { addGame } from './addGame';
 
 export const resolvers = {
   Query: {
@@ -9,5 +10,8 @@ export const resolvers = {
     getBoardGame,
     searchForBoardGame,
     inspectBoardGame,
+  },
+  Mutation: {
+    addGame,
   },
 };

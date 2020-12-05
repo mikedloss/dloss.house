@@ -1,12 +1,7 @@
 import * as React from 'react';
 import {
+  Box,
   Button,
-  Center,
-  Divider,
-  Flex,
-  IconButton,
-  Input,
-  Link,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,15 +10,15 @@ import {
   ModalHeader,
   ModalOverlay,
   Skeleton,
-  Spinner,
   Text,
   useColorModeValue,
-  useDisclosure,
 } from '@chakra-ui/react';
 
 import { useInspectGame } from '../../components/hooks';
 import { SearchedGame } from '../../lib/models/Game';
 import { GameProfile } from '../GameProfile';
+import { useAddGame } from '../hooks/useAddGame';
+import { useRouter } from 'next/router';
 
 interface InspectModalProps {
   isOpen: boolean;
@@ -32,35 +27,62 @@ interface InspectModalProps {
 }
 
 export const InspectModal: React.FC<InspectModalProps> = ({ isOpen, onClose, inspectedGame }) => {
-  const [isAdding, setIsAdding] = React.useState(false);
-  const { inspectedGame: fullGame, isLoading, isError, error } = useInspectGame(
-    ['inspect', inspectedGame.title],
-    inspectedGame
-  );
+  const router = useRouter();
+  const {
+    inspectedGame: fullGame,
+    isLoading: isInspectLoading,
+    isError: isInspectError,
+    error: inspectError,
+  } = useInspectGame(['inspect', inspectedGame.title], inspectedGame);
+  const {
+    mutate,
+    data: mutateData,
+    error: mutateError,
+    reset: mutateReset,
+    isLoading: isMutateLoading,
+    isSuccess: isMutateSuccess,
+    isError: isMutateError,
+  } = useAddGame();
 
   const borderColor = useColorModeValue('gray.100', 'gray.800');
 
-  const onAddGameClick = () => {
-    setIsAdding(true);
-  };
+  React.useEffect(() => {
+    if (mutateData) {
+      setTimeout(() => {
+        router.push('/boardgames');
+        mutateReset();
+      }, 1500);
+    }
+  }, [mutateData]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'}>
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} closeOnOverlayClick={!isMutateLoading}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader borderBottomWidth="1px" borderBottomColor={borderColor}>
-          Add {inspectedGame.title}
+        <ModalHeader justifyContent="center" borderBottomWidth="1px" borderBottomColor={borderColor}>
+          <Text>Add {inspectedGame.title}</Text>
+          {!isMutateLoading && <ModalCloseButton />}
         </ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>{isLoading ? <Skeleton height="20px" /> : <GameProfile game={fullGame} />}</ModalBody>
+        <ModalBody>{isInspectLoading ? <Skeleton height="20px" /> : <GameProfile game={fullGame} />}</ModalBody>
         <ModalFooter borderTopWidth="1px" borderTopColor={borderColor}>
           {fullGame?.alreadyExists ? (
             <Button width="100%" colorScheme="red" onClick={onClose}>
               Game already exists in your library!
             </Button>
           ) : (
-            <Button width="100%" colorScheme={isAdding ? 'blue' : 'green'} onClick={onAddGameClick}>
-              {isAdding ? 'Adding game...' : 'Add game'}
+            <Button width="100%" colorScheme={isMutateLoading ? 'blue' : 'green'} onClick={() => mutate(fullGame)}>
+              {isMutateLoading ? (
+                'Adding game...'
+              ) : mutateData ? (
+                <Box>
+                  <Text>
+                    <span>🎉</span> Game added!
+                  </Text>
+                  <Text fontSize="xs">Going back to board game list...</Text>
+                </Box>
+              ) : (
+                'Add game'
+              )}
             </Button>
           )}
         </ModalFooter>

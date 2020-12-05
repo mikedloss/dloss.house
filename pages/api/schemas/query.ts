@@ -7,4 +7,8 @@ export const queryDef = gql`
     searchForBoardGame(name: String!): [SearchedGame]
     inspectBoardGame(id: String!): InspectedBoardGame!
   }
+
+  type Mutation {
+    addGame(game: InputBoardGame): InspectedBoardGame!
+  }
 `;
