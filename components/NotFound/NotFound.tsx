@@ -6,8 +6,6 @@ import { usePupper } from '../hooks/usePupper';
 export const NotFound: React.FC = ({ children }) => {
   const { url, error } = usePupper();
 
-  console.log(`url`, url);
-
   return (
     <Center flexDirection="column">
       {children}

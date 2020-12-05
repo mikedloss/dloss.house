@@ -1,20 +1,43 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Box, Center, Flex, Heading, Skeleton, Spinner, Text, Fade } from '@chakra-ui/react';
+import { Center, Flex, Heading, Spinner, Text, Fade } from '@chakra-ui/react';
+import { gql } from 'graphql-request';
 
 import { NotFound } from '../../components/NotFound';
 import { BoardGame } from '../../lib/models/Game';
-import { useBoardGames } from '../../components/hooks';
+import { useBoardGame } from '../../components/hooks';
 import { GameProfile } from '../../components/GameProfile';
 
 export interface SingleBoardGamePageProps {
   game: BoardGame;
 }
 
+const query = gql`
+  query getBoardGame($bggId: String!) {
+    boardGame: getBoardGame(id: $bggId) {
+      bggId
+      title
+      type
+      image
+      bggRating
+      bggRank
+      difficulty
+      minPlayers
+      maxPlayers
+      minPlayingTime
+      maxPlayingTime
+      categories
+      mechanisms
+      description
+    }
+  }
+`;
+
 const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
   const router = useRouter();
-  const { games, count, isLoading, isError, error } = useBoardGames(router.query.id as string);
+  const id = router.query.id as string;
+  const { games, count, isLoading, isError, error } = useBoardGame(['boardgame', id], query, { bggId: id });
 
   return (
     <>

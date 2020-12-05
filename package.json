@@ -18,6 +18,7 @@
     "cheerio": "^1.0.0-rc.3",
     "contentful": "^7.14.8",
     "framer-motion": "^2.9.5",
+    "graphql-request": "^3.3.0",
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
     "micro-cors": "^0.1.1",

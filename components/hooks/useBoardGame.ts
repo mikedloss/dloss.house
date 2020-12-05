@@ -3,12 +3,12 @@ import { request } from 'graphql-request';
 
 import { BoardGame } from '../../lib/models/Game';
 
-export const useBoardGames = (key: string | string[], gql: string) => {
+export const useBoardGame = (key: string | string[], gql: string, variables: Record<string, any>) => {
   const { data, error, isFetching, refetch } = useQuery<BoardGame[], any>(
     key,
     async () => {
-      const { boardGames } = await request('/api/graphql', gql);
-      return boardGames;
+      const { boardGame } = await request('/api/graphql', gql, variables);
+      return boardGame;
     },
     {
       refetchOnReconnect: false,

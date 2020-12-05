@@ -1,12 +1,29 @@
 import * as React from 'react';
 import { Flex, Heading, Text, Divider, Skeleton, IconButton } from '@chakra-ui/react';
 import { FiRefreshCw } from 'react-icons/fi';
+import { gql } from 'graphql-request';
 
 import { useBoardGames } from '../components/hooks';
 import { GameSummary } from '../components/GameSummary';
 
+const query = gql`
+  query {
+    boardGames: getBoardGames {
+      bggId
+      title
+      thumbnail
+      difficulty
+      bggRating
+      minPlayers
+      maxPlayers
+      minPlayingTime
+      maxPlayingTime
+    }
+  }
+`;
+
 const BoardGamesPage: React.FC = () => {
-  const { games, count, isLoading, isError, error, refresh } = useBoardGames();
+  const { games, count, isLoading, isError, error, refresh } = useBoardGames('boardgames', query);
 
   return (
     <Flex flexDirection="column">
