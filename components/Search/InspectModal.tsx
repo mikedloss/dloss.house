@@ -56,7 +56,7 @@ export const InspectModal: React.FC<InspectModalProps> = ({ isOpen, onClose, ins
   }, [mutateData]);
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} closeOnOverlayClick={!isMutateLoading}>
+    <Modal isOpen={isOpen} onClose={onClose} scrollBehavior={'inside'} closeOnOverlayClick={!isMutateLoading} size="xl">
       <ModalOverlay />
       <ModalContent>
         <ModalHeader justifyContent="center" borderBottomWidth="1px" borderBottomColor={borderColor}>
