@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import * as React from 'react';
 import {
   Button,
   Center,
@@ -23,83 +23,51 @@ import {
 import { FiPlus, FiSearch } from 'react-icons/fi';
 import isEmpty from 'lodash/isEmpty';
 
-import { searchReducer, searchInitialState } from './search.reducer';
-import { inspectReducer, inspectInitialState } from './inspect.reducer';
-import { useDebounce } from '../../components/hooks';
-import { fetcher } from '../../lib/fetch';
+import { useDebounce, useInspectGame, useSearchGame } from '../../components/hooks';
 import { SearchedGame } from '../../lib/models/Game';
+import { InspectModal } from './InspectModal';
 
 export interface SearchProps {
-  apiSearchUrl: string;
-  apiInspectUrl?: string;
   externalItemLink: string;
 }
 
-export const Search: React.FC<SearchProps> = ({ apiSearchUrl, apiInspectUrl, externalItemLink }) => {
-  const [inspectedGame, setInspectedGame] = useState<SearchedGame>({ id: '', title: '' });
+export const Search: React.FC<SearchProps> = ({ externalItemLink }) => {
+  const [searchTerm, setSearchTerm] = React.useState('');
+  const [inspectedGame, setInspectedGame] = React.useState<SearchedGame>({ id: null, title: '' });
 
-  const [searchListState, searchListDispatch] = useReducer(searchReducer, searchInitialState);
-  const [inspectState, inspectDispatch] = useReducer(inspectReducer, inspectInitialState);
+  const debouncedSearchTerm = useDebounce(searchTerm, 350);
+  const { searchedBoardGames, isLoading: isSearchLoading, isError: isSearchError, error: searchError } = useSearchGame(
+    ['search', debouncedSearchTerm],
+    debouncedSearchTerm
+  );
 
-  console.log(`inspectState`, inspectState);
-
-  const debouncedSearchTerm = useDebounce(searchListState.searchTerm, 350);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const borderColor = useColorModeValue('gray.200', 'blue.800');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (debouncedSearchTerm) {
-        searchListDispatch({ type: 'SET_SEARCHING', payload: true });
-        searchListDispatch({ type: 'SET_ERROR', payload: false });
-        try {
-          const data = await fetcher<SearchedGame[]>(`${apiSearchUrl}${debouncedSearchTerm}`);
-          searchListDispatch({ type: 'SET_SEARCH_RESULTS', payload: data });
-          searchListDispatch({ type: 'SET_SEARCHING', payload: false });
-        } catch (error) {
-          searchListDispatch({ type: 'SET_ERROR', payload: true });
-        }
-      } else {
-        searchListDispatch({ type: 'PARTIAL_RESET' });
-        searchListDispatch({ type: 'SET_SEARCH_RESULTS', payload: [] });
-      }
-    };
-
-    fetchData();
-  }, [debouncedSearchTerm]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      console.log(`hello!`);
-    };
-
-    fetchData();
-  }, [inspectState.inspectedGame.id]);
+  const closeModal = () => {
+    setInspectedGame({ id: null, title: '' });
+    onClose();
+  };
 
   return (
     <>
       <Flex flexDirection="column">
-        <Input
-          placeholder="Search"
-          value={searchListState.searchTerm}
-          onChange={(e) => searchListDispatch({ type: 'SET_SEARCH_TERM', payload: e.target.value })}
-        />
+        <Input placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         {debouncedSearchTerm ? (
           <>
             <Divider marginY="1rem" />
-            {searchListState.isSearching ? (
+            {isSearchLoading ? (
               <Center>
                 <Spinner />
               </Center>
-            ) : searchListState.isError ? (
+            ) : isSearchError ? (
               <Text color="red.500">Error!</Text>
             ) : (
               <>
                 <Text fontSize="sm" marginBottom="1rem">
-                  Displaying {searchListState.searchResults.length} results
+                  Displaying {searchedBoardGames.length} results
                 </Text>
-                {searchListState.searchResults.map((game) => {
+                {searchedBoardGames.map((game) => {
                   return (
                     <Flex
                       key={game.id}
@@ -131,7 +99,7 @@ export const Search: React.FC<SearchProps> = ({ apiSearchUrl, apiInspectUrl, ext
                           aria-label="add game"
                           icon={<FiSearch />}
                           onClick={() => {
-                            inspectDispatch({ type: 'SET_INSPECTED_GAME', payload: game });
+                            setInspectedGame(game);
                             onOpen();
                           }}
                         />
@@ -144,19 +112,7 @@ export const Search: React.FC<SearchProps> = ({ apiSearchUrl, apiInspectUrl, ext
           </>
         ) : null}
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Add {inspectState.inspectedGame.title}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>{isEmpty ? <Skeleton height="20px" /> : <Text>hello!</Text>}</ModalBody>
-          <ModalFooter>
-            <Button width="100%" colorScheme="green" onClick={onClose}>
-              Add Game
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      {isOpen ? <InspectModal isOpen={isOpen} onClose={closeModal} inspectedGame={inspectedGame} /> : null}
     </>
   );
 };

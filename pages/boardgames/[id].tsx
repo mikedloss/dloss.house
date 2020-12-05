@@ -8,28 +8,17 @@ import { NotFound } from '../../components/NotFound';
 import { BoardGame } from '../../lib/models/Game';
 import { useBoardGame } from '../../components/hooks';
 import { GameProfile } from '../../components/GameProfile';
+import { fullBoardGame } from '../../lib/fragments';
 
 export interface SingleBoardGamePageProps {
   game: BoardGame;
 }
 
 const query = gql`
+  ${fullBoardGame}
   query getBoardGame($bggId: String!) {
     boardGame: getBoardGame(id: $bggId) {
-      bggId
-      title
-      type
-      image
-      bggRating
-      bggRank
-      difficulty
-      minPlayers
-      maxPlayers
-      minPlayingTime
-      maxPlayingTime
-      categories
-      mechanisms
-      description
+      ...FullBoardGame
     }
   }
 `;
@@ -37,7 +26,7 @@ const query = gql`
 const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { games, count, isLoading, isError, error } = useBoardGame(['boardgame', id], query, { bggId: id });
+  const { game, count, isLoading, isError, error } = useBoardGame(['boardgame', id], query, { bggId: id });
 
   return (
     <>
@@ -58,7 +47,7 @@ const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
       ) : (
         <>
           {count > 1 ? <Heading>More than 1 game</Heading> : null}
-          <GameProfile game={games[0]} />
+          <GameProfile game={game} />
         </>
       )}
     </>

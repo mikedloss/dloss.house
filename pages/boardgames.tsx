@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Flex, Heading, Text, Divider, Skeleton, IconButton } from '@chakra-ui/react';
+import { Flex, Heading, Text, Divider, Skeleton, IconButton, Button, Box } from '@chakra-ui/react';
 import { FiRefreshCw } from 'react-icons/fi';
 import { gql } from 'graphql-request';
 
 import { useBoardGames } from '../components/hooks';
 import { GameSummary } from '../components/GameSummary';
+import Link from 'next/link';
 
 const query = gql`
   query {
@@ -33,15 +34,20 @@ const BoardGamesPage: React.FC = () => {
       ) : (
         <>
           {!isError ? (
-            <Flex alignItems="center">
-              <IconButton
-                aria-label="refresh list"
-                icon={<FiRefreshCw />}
-                size="xs"
-                marginRight="0.5rem"
-                onClick={() => refresh()}
-              />
-              <Text>Showing all {count} games</Text>
+            <Flex alignItems="center" justifyContent="space-between">
+              <Flex>
+                <IconButton
+                  aria-label="refresh list"
+                  icon={<FiRefreshCw />}
+                  size="xs"
+                  marginRight="0.5rem"
+                  onClick={() => refresh()}
+                />
+                <Text>Showing all {count} games</Text>
+              </Flex>
+              <Link href="boardgames/search">
+                <Button>Search</Button>
+              </Link>
             </Flex>
           ) : null}
           <Divider marginY="1rem" />

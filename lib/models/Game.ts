@@ -19,6 +19,10 @@ export interface BoardGame {
   players: string;
 }
 
+export interface InspectedBoardGame extends BoardGame {
+  alreadyExists: boolean;
+}
+
 export interface SearchedGame {
   id: string;
   title: string;

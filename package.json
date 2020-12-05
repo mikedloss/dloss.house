@@ -17,6 +17,7 @@
     "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
     "contentful": "^7.14.8",
+    "entities": "^2.1.0",
     "framer-motion": "^2.9.5",
     "graphql-request": "^3.3.0",
     "lodash": "^4.17.20",

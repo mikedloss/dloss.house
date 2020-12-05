@@ -1,15 +1,13 @@
-import { getAllBoardGames, getBoardGameByBggId } from '../../../lib/contentful';
+import { getBoardGames } from './getBoardGames';
+import { getBoardGame } from './getBoardGame';
+import { inspectBoardGame } from './inspectBoardGame';
+import { searchForBoardGame } from './searchForBoardGame';
 
 export const resolvers = {
   Query: {
-    getBoardGames: async () => {
-      const games = await getAllBoardGames();
-      return games;
-    },
-    getBoardGame: async (_, args) => {
-      const games = await getBoardGameByBggId(args.id);
-      console.log(`games`, games);
-      return games;
-    },
+    getBoardGames,
+    getBoardGame,
+    searchForBoardGame,
+    inspectBoardGame,
   },
 };

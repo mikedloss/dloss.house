@@ -17,7 +17,7 @@ export const useBoardGame = (key: string | string[], gql: string, variables: Rec
   );
 
   return {
-    games: data,
+    game: data,
     refresh: refetch,
     count: data ? data.length : undefined,
     isLoading: isFetching || (!error && !data),
