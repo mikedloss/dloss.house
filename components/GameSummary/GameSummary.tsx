@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Box, Flex, Heading, Image, Stat, StatLabel, StatNumber, useColorModeValue } from '@chakra-ui/react';
 
 import { DifficultyBadge } from '../DifficultyBadge';

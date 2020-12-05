@@ -15,11 +15,13 @@ export const useBoardGames = (bggId?: string) => {
     revalidateOnReconnect: false,
   });
 
+  // console.log(`isValidating`, isValidating);
+
   return {
     games: data,
     refresh: mutate,
     count: data ? data.length : undefined,
-    isLoading: isValidating || (!error && !data),
+    isLoading: !error && !data,
     isError: !!error,
     error,
   };

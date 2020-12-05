@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { Center, Text, Image, Flex } from '@chakra-ui/react';
 
 import { usePupper } from '../hooks/usePupper';
