@@ -20,6 +20,7 @@
     "contentful-management": "^7.4.0",
     "entities": "^2.1.0",
     "framer-motion": "^2.9.5",
+    "graphql": "^15.4.0",
     "graphql-request": "^3.3.0",
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15",
@@ -30,7 +31,6 @@
     "react-icons": "^3.11.0",
     "react-query": "^2.26.3",
     "sass": "^1.28.0",
-    "swr": "^0.3.8",
     "unfetch": "^4.2.0",
     "utf8": "^3.0.0"
   },
