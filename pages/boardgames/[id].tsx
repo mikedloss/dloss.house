@@ -26,7 +26,7 @@ const query = gql`
 const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
   const router = useRouter();
   const id = router.query.id as string;
-  const { game, count, isLoading, isError, error } = useBoardGame(['boardgame', id], query, { bggId: id });
+  const { game, isLoading, isError, error } = useBoardGame(['boardgame', id], query, { bggId: id });
 
   return (
     <>
@@ -39,16 +39,13 @@ const SingleBoardGamePage: React.FC<SingleBoardGamePageProps> = () => {
             </Flex>
           </Center>
         </Fade>
-      ) : isError || count === 0 ? (
+      ) : isError ? (
         <NotFound>
           <Heading>Not found!</Heading>
           <Text>No game was found with ID {router.query.id}</Text>
         </NotFound>
       ) : (
-        <>
-          {count > 1 ? <Heading>More than 1 game</Heading> : null}
-          <GameProfile game={game} />
-        </>
+        <GameProfile game={game} />
       )}
     </>
   );
