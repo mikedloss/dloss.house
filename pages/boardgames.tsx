@@ -45,9 +45,9 @@ const BoardGamesPage: React.FC = () => {
                 />
                 <Text>Showing all {count} games</Text>
               </Flex>
-              <Link href="boardgames/search">
+              {/* <Link href="boardgames/search">
                 <Button>Search</Button>
-              </Link>
+              </Link> */}
             </Flex>
           ) : null}
           <Divider marginY="1rem" />
